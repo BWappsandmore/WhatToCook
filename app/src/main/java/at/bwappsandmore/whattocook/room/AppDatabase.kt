@@ -10,11 +10,14 @@ import kotlinx.coroutines.launch
 
 
 @Database(
-    entities = [FishEntity::class, NoodleEntity::class, NoSideDishEntity::class, PotatoEntity::class, RiceEntity::class, StewEntity::class],
+    entities = [FishEntity::class, NoodleEntity::class, NoSideDishEntity::class, PotatoEntity::class, RiceEntity::class, StewEntity::class, MealPlanEntity::class],
     version = 1,
     exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {
+
+    abstract fun whatToCookDao(): WhatToCookDao
+
     companion object {
         @Volatile
         private var INSTANCE: AppDatabase? = null
@@ -36,10 +39,6 @@ abstract class AppDatabase : RoomDatabase() {
                 INSTANCE = instance
                 return instance
             }
-        }
-
-        fun destroyInstance() {
-            INSTANCE = null
         }
     }
 }
