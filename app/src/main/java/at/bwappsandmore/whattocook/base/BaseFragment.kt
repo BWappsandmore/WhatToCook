@@ -15,6 +15,7 @@ abstract class BaseFragment<E: ViewDataBinding, T: BaseViewModel>: Fragment() {
 
     abstract fun getLayoutResource(): Int
     abstract fun getViewModelClass(): Class<T>
+    abstract fun getViewModelFactory(): ViewModelProvider.Factory
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,6 +33,5 @@ abstract class BaseFragment<E: ViewDataBinding, T: BaseViewModel>: Fragment() {
 
         lifecycle.addObserver(viewModel)
         return dataBinding.root
-
     }
 }

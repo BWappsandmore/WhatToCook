@@ -13,7 +13,7 @@ class AppModule(private val app: Application) {
 
     @Provides
     fun provideDB(): AppDatabase {
-        return AppDatabase.getDatabase(app, GlobalScope)
+        return AppDatabase.getDatabase(app)
     }
 
     @Provides
