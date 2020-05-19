@@ -7,6 +7,8 @@ import androidx.lifecycle.ViewModelProvider
 import at.bwappsandmore.whattocook.R
 import at.bwappsandmore.whattocook.base.BaseFragment
 import at.bwappsandmore.whattocook.databinding.FragmentMealplanBinding
+import at.bwappsandmore.whattocook.di.AppModule
+import at.bwappsandmore.whattocook.di.DaggerAppComponent
 import at.bwappsandmore.whattocook.repository.AppRepository
 import at.bwappsandmore.whattocook.ui.mealplan.viewModel.MealPlanViewModel
 import at.bwappsandmore.whattocook.ui.mealplan.viewModel.MealPlanViewModelImpl
@@ -33,5 +35,9 @@ class MealPlanFragment : BaseFragment<FragmentMealplanBinding, MealPlanViewModel
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.displayAllMeals()
+    }
+
+    override fun injectFragment() {
+        DaggerAppComponent.builder().appModule(activity?.application?.let { AppModule(it) }).build().injectFragment(this)
     }
 }

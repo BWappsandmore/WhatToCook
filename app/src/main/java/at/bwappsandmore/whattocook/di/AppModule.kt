@@ -6,7 +6,6 @@ import at.bwappsandmore.whattocook.room.AppDatabase
 import at.bwappsandmore.whattocook.room.WhatToCookDao
 import dagger.Module
 import dagger.Provides
-import kotlinx.coroutines.GlobalScope
 
 @Module
 class AppModule(private val app: Application) {

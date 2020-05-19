@@ -16,10 +16,12 @@ abstract class BaseFragment<E: ViewDataBinding, T: BaseViewModel>: Fragment() {
     abstract fun getLayoutResource(): Int
     abstract fun getViewModelClass(): Class<T>
     abstract fun getViewModelFactory(): ViewModelProvider.Factory
+    abstract fun injectFragment()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         activity?.let {
+            injectFragment()
             viewModel = ViewModelProvider(it).get(getViewModelClass())
         }
     }
@@ -30,6 +32,7 @@ abstract class BaseFragment<E: ViewDataBinding, T: BaseViewModel>: Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         dataBinding = DataBindingUtil.inflate(LayoutInflater.from(context), getLayoutResource(), container, false)
+
 
         lifecycle.addObserver(viewModel)
         return dataBinding.root
