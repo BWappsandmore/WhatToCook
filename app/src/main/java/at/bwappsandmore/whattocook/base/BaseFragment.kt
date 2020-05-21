@@ -32,8 +32,6 @@ abstract class BaseFragment<E: ViewDataBinding, T: BaseViewModel>: Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         dataBinding = DataBindingUtil.inflate(LayoutInflater.from(context), getLayoutResource(), container, false)
-
-
         lifecycle.addObserver(viewModel)
         return dataBinding.root
     }

@@ -9,8 +9,8 @@ abstract class MealPlanViewModel: BaseViewModel() {
     abstract fun displayAllMeals(): LiveData<List<MealPlanEntity>>
 }
 
-class MealPlanViewModelImpl(private val repository: AppRepository): MealPlanViewModel() {
-    private val getAllMeals: LiveData<List<MealPlanEntity>> = repository.getAllPlannedMeals()
+class MealPlanViewModelImpl(repository: AppRepository): MealPlanViewModel() {
 
+    private val getAllMeals: LiveData<List<MealPlanEntity>> = repository.getAllPlannedMeals()
     override fun displayAllMeals() = getAllMeals
 }
