@@ -25,7 +25,7 @@ class MealPlanFragment : BaseFragment<FragmentMealplanBinding, MealPlanViewModel
     override fun getViewModelClass(): Class<MealPlanViewModel> = MealPlanViewModel::class.java
 
     override fun getViewModelFactory(): ViewModelProvider.Factory {
-        return object : ViewModelProvider.NewInstanceFactory() {
+        return object : ViewModelProvider.NewInstanceFactory(){
             override fun <T : ViewModel?> create(modelClass: Class<T>): T {
                 return MealPlanViewModelImpl(repository) as T
             }

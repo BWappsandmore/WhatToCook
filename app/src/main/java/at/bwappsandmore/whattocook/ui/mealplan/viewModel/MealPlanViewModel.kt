@@ -7,10 +7,16 @@ import at.bwappsandmore.whattocook.room.MealPlanEntity
 
 abstract class MealPlanViewModel: BaseViewModel() {
     abstract fun displayAllMeals(): LiveData<List<MealPlanEntity>>
+    abstract fun insertMeal(meal: MealPlanEntity)
 }
 
-class MealPlanViewModelImpl(repository: AppRepository): MealPlanViewModel() {
+class MealPlanViewModelImpl(private val repository: AppRepository): MealPlanViewModel() {
 
     private val getAllMeals: LiveData<List<MealPlanEntity>> = repository.getAllPlannedMeals()
+
     override fun displayAllMeals() = getAllMeals
+
+    override fun insertMeal(meal: MealPlanEntity) {
+        repository.insert(meal)
+    }
 }

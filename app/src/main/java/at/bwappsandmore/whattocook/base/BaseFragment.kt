@@ -22,7 +22,7 @@ abstract class BaseFragment<E: ViewDataBinding, T: BaseViewModel>: Fragment() {
         super.onCreate(savedInstanceState)
         activity?.let {
             injectFragment()
-            viewModel = ViewModelProvider(it).get(getViewModelClass())
+            viewModel = ViewModelProvider(it, getViewModelFactory()).get(getViewModelClass())
         }
     }
 
