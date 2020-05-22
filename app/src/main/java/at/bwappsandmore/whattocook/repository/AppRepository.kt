@@ -15,6 +15,7 @@ interface LocalRepository {
     fun getAllFishMeals(): LiveData<List<FishEntity>>
     fun getAllPlannedMeals(): LiveData<List<MealPlanEntity>>
 
+    fun insert(noodleMeal: NoodleEntity)
     fun insert(potatoMeal: PotatoEntity)
     fun insert(riceMeal: RiceEntity)
     fun insert(stewMeal: StewEntity)
@@ -41,6 +42,11 @@ class AppRepository (private val whatToCookDao: WhatToCookDao) : LocalRepository
     override fun getAllFishMeals() = whatToCookDao.getAllFishMeals()
     override fun getAllPlannedMeals() = whatToCookDao.getAllPlannedMeals()
 
+    override fun insert(noodleMeal: NoodleEntity) {
+        GlobalScope.launch {
+            whatToCookDao.insert(noodleMeal)
+        }
+    }
     override fun insert(potatoMeal: PotatoEntity){
         GlobalScope.launch {
             whatToCookDao.insert(potatoMeal)
