@@ -3,4 +3,5 @@
     <string name="tab_mealplan">Tab MealPlanFragment</string>
     <string name="tab_noodle">Tab NoodleFragment</string>
     <string name="tab_fish">Tab FishFragment</string>
+    <string name="tab_potato">Tab PotatoFragment</string>
 </resources>

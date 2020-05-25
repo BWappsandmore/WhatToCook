@@ -22,6 +22,7 @@ class MainActivity : AppCompatActivity()  {
                     0 -> getDrawable(R.drawable.ic_list_meals)
                     1 -> getDrawable(R.drawable.ic_fish_meal)
                     2 -> getDrawable(R.drawable.ic_noodles)
+                    3 -> getDrawable(R.drawable.ic_potatoe_solid)
                     else -> throw Exception()
                 }
             }).attach()
