@@ -7,13 +7,20 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import at.bwappsandmore.whattocook.ui.fish.fragment.FishFragment
 import at.bwappsandmore.whattocook.ui.mealplan.fragment.MealPlanFragment
 import at.bwappsandmore.whattocook.ui.noodle.fragment.NoodleFragment
+import at.bwappsandmore.whattocook.ui.nosidedish.fragment.NoSideDishFragment
 import at.bwappsandmore.whattocook.ui.potato.fragment.PotatoFragment
+import at.bwappsandmore.whattocook.ui.rice.fragment.RiceFragment
 
 class PagerAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle) :
     FragmentStateAdapter(fragmentManager, lifecycle) {
 
     private val items = listOf(
-        MealPlanFragment(), FishFragment(), NoodleFragment(), PotatoFragment()
+        MealPlanFragment(),
+        FishFragment(),
+        NoodleFragment(),
+        PotatoFragment(),
+        RiceFragment(),
+        NoSideDishFragment()
     )
 
     override fun getItemCount(): Int = items.size
@@ -23,6 +30,8 @@ class PagerAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle) :
         1 -> FishFragment()
         2 -> NoodleFragment()
         3 -> PotatoFragment()
+        4 -> RiceFragment()
+        5 -> NoSideDishFragment()
         else -> throw RuntimeException()
     }
 }

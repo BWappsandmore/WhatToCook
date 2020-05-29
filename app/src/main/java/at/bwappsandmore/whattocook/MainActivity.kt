@@ -7,7 +7,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.android.synthetic.main.activity_main.*
 import java.lang.Exception
 
-class MainActivity : AppCompatActivity()  {
+class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,6 +23,8 @@ class MainActivity : AppCompatActivity()  {
                     1 -> getDrawable(R.drawable.ic_fish_meal)
                     2 -> getDrawable(R.drawable.ic_noodles)
                     3 -> getDrawable(R.drawable.ic_potatoe_solid)
+                    4 -> getDrawable(R.drawable.ic_rice)
+                    5 -> getDrawable(R.drawable.ic_pizza)
                     else -> throw Exception()
                 }
             }).attach()

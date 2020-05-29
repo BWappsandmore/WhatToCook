@@ -6,4 +6,6 @@
     <color name="colorFishFragment">#5697d8</color>
     <color name="colorNoodleFragment">#ffdb88</color>
     <color name="colorPotatoFragment">#CC9966</color>
+    <color name="colorRiceFragment">#FFFEF2</color>
+    <color name="colorNoSideDishFragment">#ffa600</color>
 </resources>
