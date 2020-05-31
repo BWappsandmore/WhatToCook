@@ -5,4 +5,6 @@
     <string name="tab_fish">Tab FishFragment</string>
     <string name="tab_potato">Tab PotatoFragment</string>
     <string name="tab_rice">Tab RiceFragment</string>
+    <string name="tab_nosidedish">Tab NoSideDishFragment</string>
+    <string name="tab_stew">Tab StewFragment</string>
 </resources>

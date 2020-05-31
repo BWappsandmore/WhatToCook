@@ -8,4 +8,5 @@
     <color name="colorPotatoFragment">#CC9966</color>
     <color name="colorRiceFragment">#FFFEF2</color>
     <color name="colorNoSideDishFragment">#ffa600</color>
+    <color name="colorStewFragment">#e3ffd2</color>
 </resources>

@@ -6,6 +6,7 @@ import at.bwappsandmore.whattocook.ui.noodle.fragment.NoodleFragment
 import at.bwappsandmore.whattocook.ui.nosidedish.fragment.NoSideDishFragment
 import at.bwappsandmore.whattocook.ui.potato.fragment.PotatoFragment
 import at.bwappsandmore.whattocook.ui.rice.fragment.RiceFragment
+import at.bwappsandmore.whattocook.ui.stew.fragment.StewFragment
 import dagger.Component
 
 @Component(modules = [AppModule::class])
@@ -16,4 +17,5 @@ interface AppComponent {
     fun injectFragment(target: PotatoFragment)
     fun injectFragment(target: RiceFragment)
     fun injectFragment(target: NoSideDishFragment)
+    fun injectFragment(target: StewFragment)
 }

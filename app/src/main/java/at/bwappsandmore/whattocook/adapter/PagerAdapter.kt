@@ -10,6 +10,7 @@ import at.bwappsandmore.whattocook.ui.noodle.fragment.NoodleFragment
 import at.bwappsandmore.whattocook.ui.nosidedish.fragment.NoSideDishFragment
 import at.bwappsandmore.whattocook.ui.potato.fragment.PotatoFragment
 import at.bwappsandmore.whattocook.ui.rice.fragment.RiceFragment
+import at.bwappsandmore.whattocook.ui.stew.fragment.StewFragment
 
 class PagerAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle) :
     FragmentStateAdapter(fragmentManager, lifecycle) {
@@ -20,7 +21,8 @@ class PagerAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle) :
         NoodleFragment(),
         PotatoFragment(),
         RiceFragment(),
-        NoSideDishFragment()
+        NoSideDishFragment(),
+        StewFragment()
     )
 
     override fun getItemCount(): Int = items.size
@@ -32,6 +34,7 @@ class PagerAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle) :
         3 -> PotatoFragment()
         4 -> RiceFragment()
         5 -> NoSideDishFragment()
+        6 -> StewFragment()
         else -> throw RuntimeException()
     }
 }
