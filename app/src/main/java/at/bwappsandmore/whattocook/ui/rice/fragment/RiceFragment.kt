@@ -13,13 +13,12 @@ import at.bwappsandmore.whattocook.di.AppModule
 import at.bwappsandmore.whattocook.di.DaggerAppComponent
 import at.bwappsandmore.whattocook.repository.AppRepository
 import at.bwappsandmore.whattocook.ui.rice.adapter.RiceAdapter
-import at.bwappsandmore.whattocook.ui.rice.viewModel.RiceViewModel
-import at.bwappsandmore.whattocook.ui.rice.viewModel.RiceViewModelImpl
+import at.bwappsandmore.whattocook.ui.viewmodel.SharedViewModel
 import kotlinx.android.synthetic.main.fragment_rice.*
 import javax.inject.Inject
 
 @Suppress("UNCHECKED_CAST")
-class RiceFragment : BaseFragment<FragmentRiceBinding, RiceViewModel>() {
+class RiceFragment : BaseFragment<FragmentRiceBinding, SharedViewModel>() {
     @Inject
     lateinit var repository: AppRepository
 
@@ -30,19 +29,11 @@ class RiceFragment : BaseFragment<FragmentRiceBinding, RiceViewModel>() {
     })
 
     override fun getLayoutResource(): Int = R.layout.fragment_rice
-    override fun getViewModelClass(): Class<RiceViewModel> = RiceViewModel::class.java
-
-    override fun getViewModelFactory(): ViewModelProvider.Factory {
-        return object : ViewModelProvider.NewInstanceFactory() {
-            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                return RiceViewModelImpl(repository) as T
-            }
-        }
-    }
+    override fun getViewModelClass(): Class<SharedViewModel> = SharedViewModel::class.java
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.displayAllMeals()
+        dataBinding.viewModel = viewModel
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -52,10 +43,5 @@ class RiceFragment : BaseFragment<FragmentRiceBinding, RiceViewModel>() {
             layoutManager = LinearLayoutManager(context!!, LinearLayoutManager.VERTICAL, false)
             adapter = riceAdapter
         }
-    }
-
-    override fun injectFragment() {
-        DaggerAppComponent.builder().appModule(activity?.application?.let { AppModule(it) }).build()
-            .injectFragment(this)
     }
 }

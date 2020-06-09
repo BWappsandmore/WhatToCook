@@ -2,16 +2,57 @@ package at.bwappsandmore.whattocook
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.viewpager2.widget.ViewPager2
 import at.bwappsandmore.whattocook.adapter.PagerAdapter
+import at.bwappsandmore.whattocook.base.BaseActivity
+import at.bwappsandmore.whattocook.databinding.ActivityMainBinding
+import at.bwappsandmore.whattocook.di.AppModule
+import at.bwappsandmore.whattocook.di.DaggerAppComponent
+import at.bwappsandmore.whattocook.repository.AppRepository
+import at.bwappsandmore.whattocook.ui.viewmodel.SharedViewModel
+import at.bwappsandmore.whattocook.ui.viewmodel.SharedViewModelImpl
 import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.android.synthetic.main.activity_main.*
 import java.lang.Exception
+import javax.inject.Inject
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity<ActivityMainBinding, SharedViewModel>() {
+
+    @Inject
+    lateinit var repository: AppRepository
+
+    override fun getLayoutResource(): Int = R.layout.activity_main
+    override fun getViewModelClass(): Class<SharedViewModel> = SharedViewModel::class.java
+
+    override fun getViewModelFactory(): ViewModelProvider.Factory {
+        return object : ViewModelProvider.NewInstanceFactory() {
+            @Suppress("UNCHECKED_CAST")
+            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+                return SharedViewModelImpl(repository) as T
+            }
+        }
+    }
+
+    companion object {
+        private const val DELTA_Y = 0.5F
+        private const val ROTATION_Y_COEFFICIENT = 45F
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+
+        viewPager.setPageTransformer { page, position ->
+            with(page) {
+                pivotX = if (position < 0F) width.toFloat() else 0F
+                pivotY = height * DELTA_Y
+                rotationY = ROTATION_Y_COEFFICIENT * position
+            }
+        }
+
+        viewPager.orientation = ViewPager2.ORIENTATION_HORIZONTAL
+
         viewPager.adapter = PagerAdapter(supportFragmentManager, lifecycle)
 
         TabLayoutMediator(
@@ -29,5 +70,9 @@ class MainActivity : AppCompatActivity() {
                     else -> throw Exception()
                 }
             }).attach()
+    }
+
+    override fun inject() {
+        DaggerAppComponent.builder().appModule(AppModule(application)).build().inject(this)
     }
 }

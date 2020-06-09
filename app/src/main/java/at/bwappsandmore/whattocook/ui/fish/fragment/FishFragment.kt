@@ -2,24 +2,19 @@ package at.bwappsandmore.whattocook.ui.fish.fragment
 
 import android.os.Bundle
 import android.view.View
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import at.bwappsandmore.whattocook.R
 import at.bwappsandmore.whattocook.base.BaseFragment
 import at.bwappsandmore.whattocook.databinding.FragmentFishBinding
-import at.bwappsandmore.whattocook.di.AppModule
-import at.bwappsandmore.whattocook.di.DaggerAppComponent
 import at.bwappsandmore.whattocook.repository.AppRepository
 import at.bwappsandmore.whattocook.ui.fish.adapter.FishAdapter
-import at.bwappsandmore.whattocook.ui.fish.viewModel.FishViewModel
-import at.bwappsandmore.whattocook.ui.fish.viewModel.FishViewModelImpl
+import at.bwappsandmore.whattocook.ui.viewmodel.SharedViewModel
 import kotlinx.android.synthetic.main.fragment_fish.*
 import javax.inject.Inject
 
 @Suppress("UNCHECKED_CAST")
-class FishFragment : BaseFragment<FragmentFishBinding, FishViewModel>(){
+class FishFragment : BaseFragment<FragmentFishBinding, SharedViewModel>(){
 
     @Inject
     lateinit var repository: AppRepository
@@ -31,19 +26,11 @@ class FishFragment : BaseFragment<FragmentFishBinding, FishViewModel>(){
     })
 
     override fun getLayoutResource(): Int = R.layout.fragment_fish
-    override fun getViewModelClass(): Class<FishViewModel> = FishViewModel::class.java
-
-    override fun getViewModelFactory(): ViewModelProvider.Factory {
-        return object : ViewModelProvider.NewInstanceFactory(){
-            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                return FishViewModelImpl(repository) as T
-            }
-        }
-    }
+    override fun getViewModelClass(): Class<SharedViewModel> = SharedViewModel::class.java
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.displayAllMeals()
+        dataBinding.viewModel = viewModel
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -54,10 +41,4 @@ class FishFragment : BaseFragment<FragmentFishBinding, FishViewModel>(){
             adapter = fishAdapter
         }
     }
-
-    override fun injectFragment() {
-        DaggerAppComponent.builder().appModule(activity?.application?.let { AppModule(it) }).build().injectFragment(this)
-    }
-
-
 }

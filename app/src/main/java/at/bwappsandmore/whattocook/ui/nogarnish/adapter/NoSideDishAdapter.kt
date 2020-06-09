@@ -1,4 +1,4 @@
-package at.bwappsandmore.whattocook.ui.nosidedish.adapter
+package at.bwappsandmore.whattocook.ui.nogarnish.adapter
 
 import android.view.LayoutInflater
 import android.view.View

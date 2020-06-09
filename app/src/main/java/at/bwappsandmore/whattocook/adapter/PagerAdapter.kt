@@ -7,7 +7,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import at.bwappsandmore.whattocook.ui.fish.fragment.FishFragment
 import at.bwappsandmore.whattocook.ui.mealplan.fragment.MealPlanFragment
 import at.bwappsandmore.whattocook.ui.noodle.fragment.NoodleFragment
-import at.bwappsandmore.whattocook.ui.nosidedish.fragment.NoSideDishFragment
+import at.bwappsandmore.whattocook.ui.nogarnish.fragment.NoGarnishFragment
 import at.bwappsandmore.whattocook.ui.potato.fragment.PotatoFragment
 import at.bwappsandmore.whattocook.ui.rice.fragment.RiceFragment
 import at.bwappsandmore.whattocook.ui.stew.fragment.StewFragment
@@ -21,7 +21,7 @@ class PagerAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle) :
         NoodleFragment(),
         PotatoFragment(),
         RiceFragment(),
-        NoSideDishFragment(),
+        NoGarnishFragment(),
         StewFragment()
     )
 
@@ -33,7 +33,7 @@ class PagerAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle) :
         2 -> NoodleFragment()
         3 -> PotatoFragment()
         4 -> RiceFragment()
-        5 -> NoSideDishFragment()
+        5 -> NoGarnishFragment()
         6 -> StewFragment()
         else -> throw RuntimeException()
     }

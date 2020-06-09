@@ -5,7 +5,12 @@
     android:background = "@color/colorNoodleFragment">
 
     <data>
-
+        <variable
+            name="viewModel"
+            type="at.bwappsandmore.whattocook.ui.viewmodel.SharedViewModel" />
+        <variable
+            name="fragment"
+            type="at.bwappsandmore.whattocook.ui.noodle.fragment.NoodleFragment" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -29,17 +34,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/noodleRv"/>
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/main_fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="42dp"
-            android:layout_marginBottom="104dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:srcCompat="@drawable/ic_add_primary_24dp" />
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

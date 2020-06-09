@@ -2,8 +2,7 @@ package at.bwappsandmore.whattocook.ui.potato.fragment
 
 import android.os.Bundle
 import android.view.View
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
+
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import at.bwappsandmore.whattocook.R
@@ -13,13 +12,12 @@ import at.bwappsandmore.whattocook.di.AppModule
 import at.bwappsandmore.whattocook.di.DaggerAppComponent
 import at.bwappsandmore.whattocook.repository.AppRepository
 import at.bwappsandmore.whattocook.ui.potato.adapter.PotatoAdapter
-import at.bwappsandmore.whattocook.ui.potato.viewModel.PotatoViewModel
-import at.bwappsandmore.whattocook.ui.potato.viewModel.PotatoViewModelImpl
+import at.bwappsandmore.whattocook.ui.viewmodel.SharedViewModel
 import kotlinx.android.synthetic.main.fragment_potato.*
 import javax.inject.Inject
 
 @Suppress("UNCHECKED_CAST")
-class PotatoFragment : BaseFragment<FragmentPotatoBinding, PotatoViewModel>() {
+class PotatoFragment : BaseFragment<FragmentPotatoBinding, SharedViewModel>() {
 
     @Inject
     lateinit var repository: AppRepository
@@ -33,18 +31,13 @@ class PotatoFragment : BaseFragment<FragmentPotatoBinding, PotatoViewModel>() {
     )
 
     override fun getLayoutResource(): Int = R.layout.fragment_potato
-    override fun getViewModelClass(): Class<PotatoViewModel> = PotatoViewModel::class.java
-    override fun getViewModelFactory(): ViewModelProvider.Factory {
-        return object : ViewModelProvider.NewInstanceFactory() {
-            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                return PotatoViewModelImpl(repository) as T
-            }
-        }
-    }
+    override fun getViewModelClass(): Class<SharedViewModel> = SharedViewModel::class.java
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.displayAllMeals()
+        dataBinding.viewModel = viewModel
+
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -54,10 +47,5 @@ class PotatoFragment : BaseFragment<FragmentPotatoBinding, PotatoViewModel>() {
             layoutManager = LinearLayoutManager(context!!, LinearLayoutManager.VERTICAL, false)
             adapter = potatoAdapter
         }
-    }
-
-    override fun injectFragment() {
-        DaggerAppComponent.builder().appModule(activity?.application?.let { AppModule(it) }).build()
-            .injectFragment(this)
     }
 }

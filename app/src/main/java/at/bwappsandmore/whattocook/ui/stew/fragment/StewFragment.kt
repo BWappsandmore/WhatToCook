@@ -9,17 +9,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import at.bwappsandmore.whattocook.R
 import at.bwappsandmore.whattocook.base.BaseFragment
 import at.bwappsandmore.whattocook.databinding.FragmentStewBinding
-import at.bwappsandmore.whattocook.di.AppModule
-import at.bwappsandmore.whattocook.di.DaggerAppComponent
 import at.bwappsandmore.whattocook.repository.AppRepository
 import at.bwappsandmore.whattocook.ui.stew.adapter.StewAdapter
-import at.bwappsandmore.whattocook.ui.stew.viewModel.StewViewModel
-import at.bwappsandmore.whattocook.ui.stew.viewModel.StewViewModelImpl
+import at.bwappsandmore.whattocook.ui.viewmodel.SharedViewModel
 import kotlinx.android.synthetic.main.fragment_stew.*
 import javax.inject.Inject
 
 @Suppress("UNCHECKED_CAST")
-class StewFragment : BaseFragment<FragmentStewBinding, StewViewModel>() {
+class StewFragment : BaseFragment<FragmentStewBinding, SharedViewModel>() {
     @Inject
     lateinit var repository: AppRepository
 
@@ -30,19 +27,11 @@ class StewFragment : BaseFragment<FragmentStewBinding, StewViewModel>() {
     })
 
     override fun getLayoutResource(): Int = R.layout.fragment_stew
-    override fun getViewModelClass(): Class<StewViewModel> = StewViewModel::class.java
-
-    override fun getViewModelFactory(): ViewModelProvider.Factory {
-        return object : ViewModelProvider.NewInstanceFactory() {
-            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                return StewViewModelImpl(repository) as T
-            }
-        }
-    }
+    override fun getViewModelClass(): Class<SharedViewModel> = SharedViewModel::class.java
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.displayAllMeals()
+        dataBinding.viewModel = viewModel
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -52,10 +41,5 @@ class StewFragment : BaseFragment<FragmentStewBinding, StewViewModel>() {
             layoutManager = LinearLayoutManager(context!!, LinearLayoutManager.VERTICAL, false)
             adapter = stewAdapter
         }
-    }
-
-    override fun injectFragment() {
-        DaggerAppComponent.builder().appModule(activity?.application?.let { AppModule(it) }).build()
-            .injectFragment(this)
     }
 }
