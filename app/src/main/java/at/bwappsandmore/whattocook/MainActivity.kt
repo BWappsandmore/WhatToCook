@@ -1,16 +1,15 @@
 package at.bwappsandmore.whattocook
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
 import at.bwappsandmore.whattocook.adapter.PagerAdapter
 import at.bwappsandmore.whattocook.base.BaseActivity
-import at.bwappsandmore.whattocook.databinding.ActivityMainBinding
 import at.bwappsandmore.whattocook.di.AppModule
 import at.bwappsandmore.whattocook.di.DaggerAppComponent
 import at.bwappsandmore.whattocook.repository.AppRepository
+import at.bwappsandmore.whattocook.room.MealEntity
 import at.bwappsandmore.whattocook.ui.viewmodel.SharedViewModel
 import at.bwappsandmore.whattocook.ui.viewmodel.SharedViewModelImpl
 import com.google.android.material.tabs.TabLayoutMediator
@@ -18,7 +17,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import java.lang.Exception
 import javax.inject.Inject
 
-class MainActivity : BaseActivity<ActivityMainBinding, SharedViewModel>() {
+class MainActivity : BaseActivity<SharedViewModel>() {
 
     @Inject
     lateinit var repository: AppRepository
@@ -43,6 +42,9 @@ class MainActivity : BaseActivity<ActivityMainBinding, SharedViewModel>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        viewPager.adapter = PagerAdapter(supportFragmentManager, lifecycle)
+        viewPager.orientation = ViewPager2.ORIENTATION_HORIZONTAL
+
         viewPager.setPageTransformer { page, position ->
             with(page) {
                 pivotX = if (position < 0F) width.toFloat() else 0F
@@ -50,10 +52,6 @@ class MainActivity : BaseActivity<ActivityMainBinding, SharedViewModel>() {
                 rotationY = ROTATION_Y_COEFFICIENT * position
             }
         }
-
-        viewPager.orientation = ViewPager2.ORIENTATION_HORIZONTAL
-
-        viewPager.adapter = PagerAdapter(supportFragmentManager, lifecycle)
 
         TabLayoutMediator(
             tabs,
@@ -70,6 +68,16 @@ class MainActivity : BaseActivity<ActivityMainBinding, SharedViewModel>() {
                     else -> throw Exception()
                 }
             }).attach()
+
+        main_fab.setOnClickListener {
+            mealNameEt.text.toString().trim().isNotEmpty().apply {
+                if (mealNameEt.text.toString().trim() != "") {
+                    viewModel.insertMeal(MealEntity(0, viewPager.currentItem, mealNameEt.text.toString()))
+                    mealNameEt.text.clear()
+                }
+            }
+            hideSoftKeyboard(this)
+        }
     }
 
     override fun inject() {

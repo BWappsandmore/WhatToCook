@@ -1,15 +1,16 @@
 package at.bwappsandmore.whattocook.base
 
+import android.app.Activity
 import android.os.Bundle
+import android.view.inputmethod.InputMethodManager
+import androidx.annotation.IdRes
 import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.DataBindingUtil
-import androidx.databinding.ViewDataBinding
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 
-abstract class BaseActivity <E: ViewDataBinding, T: BaseViewModel> : AppCompatActivity() {
+abstract class BaseActivity <T: BaseViewModel> : AppCompatActivity() {
 
     lateinit var viewModel: T
-    lateinit var dataBinding: E
 
     abstract fun inject()
     abstract fun getLayoutResource(): Int
@@ -18,8 +19,22 @@ abstract class BaseActivity <E: ViewDataBinding, T: BaseViewModel> : AppCompatAc
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        dataBinding = DataBindingUtil.setContentView(this, getLayoutResource())
+        setContentView(getLayoutResource())
         inject()
         viewModel = ViewModelProvider(this, getViewModelFactory()).get(getViewModelClass())
+    }
+
+    fun addFragment(@IdRes layoutId: Int, fragment: Fragment, backStack: Boolean = false) {
+        val transfer = supportFragmentManager.beginTransaction()
+            .add(layoutId, fragment)
+        if (backStack) {
+            transfer.addToBackStack(fragment.tag)
+        }
+        transfer.commit()
+    }
+
+    fun hideSoftKeyboard(activity: Activity?) {
+        val inputMethodManager: InputMethodManager = activity?.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(activity.currentFocus?.windowToken, 0)
     }
 }

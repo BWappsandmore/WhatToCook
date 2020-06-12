@@ -7,7 +7,7 @@ import kotlinx.coroutines.launch
 
 interface LocalRepository {
 
-    fun getAllMeals(mealType: String): LiveData<List<MealEntity>>
+    fun getAllMeals(mealType: Int): LiveData<List<MealEntity>>
     fun insert(meal: MealEntity)
     fun delete(meal: MealEntity)
 
@@ -15,7 +15,7 @@ interface LocalRepository {
 
 class AppRepository (private val whatToCookDao: WhatToCookDao) : LocalRepository {
 
-    override fun getAllMeals(mealType: String) = whatToCookDao.getAllMeals(mealType)
+    override fun getAllMeals(mealType: Int) = whatToCookDao.getAllMeals(mealType)
 
     override fun insert(meal: MealEntity) {
         GlobalScope.launch {

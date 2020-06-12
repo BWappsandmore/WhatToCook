@@ -2,15 +2,10 @@ package at.bwappsandmore.whattocook.ui.mealplan.fragment
 
 import android.os.Bundle
 import android.view.View
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import at.bwappsandmore.whattocook.R
 import at.bwappsandmore.whattocook.base.BaseFragment
-import at.bwappsandmore.whattocook.databinding.FragmentMealplanBinding
-import at.bwappsandmore.whattocook.di.AppModule
-import at.bwappsandmore.whattocook.di.DaggerAppComponent
 import at.bwappsandmore.whattocook.repository.AppRepository
 import at.bwappsandmore.whattocook.ui.mealplan.adapter.MealPlanAdapter
 import at.bwappsandmore.whattocook.ui.viewmodel.SharedViewModel
@@ -19,7 +14,7 @@ import javax.inject.Inject
 
 
 @Suppress("UNCHECKED_CAST")
-class MealPlanFragment : BaseFragment<FragmentMealplanBinding, SharedViewModel>() {
+class MealPlanFragment : BaseFragment<SharedViewModel>() {
 
     @Inject
     lateinit var repository: AppRepository

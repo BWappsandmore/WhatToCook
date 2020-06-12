@@ -2,15 +2,11 @@ package at.bwappsandmore.whattocook.ui.rice.fragment
 
 import android.os.Bundle
 import android.view.View
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import at.bwappsandmore.whattocook.R
 import at.bwappsandmore.whattocook.base.BaseFragment
-import at.bwappsandmore.whattocook.databinding.FragmentRiceBinding
-import at.bwappsandmore.whattocook.di.AppModule
-import at.bwappsandmore.whattocook.di.DaggerAppComponent
 import at.bwappsandmore.whattocook.repository.AppRepository
 import at.bwappsandmore.whattocook.ui.rice.adapter.RiceAdapter
 import at.bwappsandmore.whattocook.ui.viewmodel.SharedViewModel
@@ -18,7 +14,12 @@ import kotlinx.android.synthetic.main.fragment_rice.*
 import javax.inject.Inject
 
 @Suppress("UNCHECKED_CAST")
-class RiceFragment : BaseFragment<FragmentRiceBinding, SharedViewModel>() {
+class RiceFragment : BaseFragment<SharedViewModel>() {
+
+    companion object {
+        private const val rice = 4
+    }
+
     @Inject
     lateinit var repository: AppRepository
 
@@ -33,7 +34,6 @@ class RiceFragment : BaseFragment<FragmentRiceBinding, SharedViewModel>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        dataBinding.viewModel = viewModel
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -43,5 +43,13 @@ class RiceFragment : BaseFragment<FragmentRiceBinding, SharedViewModel>() {
             layoutManager = LinearLayoutManager(context!!, LinearLayoutManager.VERTICAL, false)
             adapter = riceAdapter
         }
+
+        viewModel.getAllMeals(RiceFragment.rice).observe(viewLifecycleOwner, Observer { meals ->
+            meals?.let {
+                riceAdapter.setMeals(it)
+            }
+
+            return@Observer
+        })
     }
 }

@@ -2,13 +2,11 @@ package at.bwappsandmore.whattocook.ui.noodle.fragment
 
 import android.os.Bundle
 import android.view.View
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import at.bwappsandmore.whattocook.R
 import at.bwappsandmore.whattocook.base.BaseFragment
-import at.bwappsandmore.whattocook.databinding.FragmentNoodleBinding
 import at.bwappsandmore.whattocook.repository.AppRepository
 import at.bwappsandmore.whattocook.ui.noodle.adapter.NoodleAdapter
 import at.bwappsandmore.whattocook.ui.viewmodel.SharedViewModel
@@ -16,7 +14,11 @@ import kotlinx.android.synthetic.main.fragment_noodle.*
 import javax.inject.Inject
 
 @Suppress("UNCHECKED_CAST")
-class NoodleFragment : BaseFragment<FragmentNoodleBinding, SharedViewModel>() {
+class NoodleFragment : BaseFragment<SharedViewModel>() {
+
+    companion object {
+        private const val noodle = 2
+    }
 
     @Inject
     lateinit var repository: AppRepository
@@ -34,7 +36,11 @@ class NoodleFragment : BaseFragment<FragmentNoodleBinding, SharedViewModel>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        dataBinding.viewModel = viewModel
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel.getAllMeals(noodle)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -44,5 +50,13 @@ class NoodleFragment : BaseFragment<FragmentNoodleBinding, SharedViewModel>() {
             layoutManager = LinearLayoutManager(context!!, LinearLayoutManager.VERTICAL, false)
             adapter = noodleAdapter
         }
+
+        viewModel.getAllMeals(noodle).observe(viewLifecycleOwner, Observer { meals ->
+            meals?.let {
+                noodleAdapter.setMeals(it)
+            }
+
+            return@Observer
+        })
     }
 }

@@ -6,7 +6,7 @@ import androidx.room.*
 @Dao
 interface WhatToCookDao {
     @Query("SELECT * FROM MealEntity WHERE mealType = :mealType")
-    fun getAllMeals(mealType: String): LiveData<List<MealEntity>>
+    fun getAllMeals(mealType: Int): LiveData<List<MealEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(meal: MealEntity)

@@ -5,17 +5,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import at.bwappsandmore.whattocook.R
-import at.bwappsandmore.whattocook.room.RiceEntity
+import at.bwappsandmore.whattocook.room.MealEntity
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.recyclerview_item.view.*
 
 class RiceAdapter(
-    private val onActionClicked: (RiceEntity) -> Unit,
-    private val onActionLongClicked: (RiceEntity) -> Unit
+    private val onActionClicked: (MealEntity) -> Unit,
+    private val onActionLongClicked: (MealEntity) -> Unit
 ) :
     RecyclerView.Adapter<RiceAdapter.RiceViewHolder>() {
-    var meals = emptyList<RiceEntity>()
-    internal fun setMeals(meals: List<RiceEntity>) {
+    var meals = emptyList<MealEntity>()
+    internal fun setMeals(meals: List<MealEntity>) {
         this.meals = meals
         notifyDataSetChanged()
     }
@@ -46,7 +46,7 @@ class RiceAdapter(
             }
         }
 
-        fun bind(meal: RiceEntity) {
+        fun bind(meal: MealEntity) {
             itemView.meal_name.text = meal.mealName
         }
     }
