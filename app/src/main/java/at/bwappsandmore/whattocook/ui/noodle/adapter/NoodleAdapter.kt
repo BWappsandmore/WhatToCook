@@ -6,7 +6,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import at.bwappsandmore.whattocook.R
 import at.bwappsandmore.whattocook.room.MealEntity
-import at.bwappsandmore.whattocook.room.NoodleEntity
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.recyclerview_item.view.*
 

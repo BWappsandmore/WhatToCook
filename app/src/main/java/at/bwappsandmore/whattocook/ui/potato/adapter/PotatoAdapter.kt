@@ -5,17 +5,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import at.bwappsandmore.whattocook.R
-import at.bwappsandmore.whattocook.room.PotatoEntity
+import at.bwappsandmore.whattocook.room.MealEntity
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.recyclerview_item.view.*
 
 class PotatoAdapter(
-    private val onActionClicked: (PotatoEntity) -> Unit,
-    private val onActionLongClicked: (PotatoEntity) -> Unit
+    private val onActionClicked: (MealEntity) -> Unit,
+    private val onActionLongClicked: (MealEntity) -> Unit
 ) :
     RecyclerView.Adapter<PotatoAdapter.PotatoViewHolder>() {
-    var meals = emptyList<PotatoEntity>()
-    internal fun setMeals(meals: List<PotatoEntity>) {
+    var meals = emptyList<MealEntity>()
+    internal fun setMeals(meals: List<MealEntity>) {
         this.meals = meals
         notifyDataSetChanged()
     }
@@ -46,7 +46,7 @@ class PotatoAdapter(
             }
         }
 
-        fun bind(meal: PotatoEntity) {
+        fun bind(meal: MealEntity) {
             itemView.meal_name.text = meal.mealName
         }
 

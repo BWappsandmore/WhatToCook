@@ -2,6 +2,7 @@ package at.bwappsandmore.whattocook.ui.potato.fragment
 
 import android.os.Bundle
 import android.view.View
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import at.bwappsandmore.whattocook.R
@@ -14,6 +15,10 @@ import javax.inject.Inject
 
 @Suppress("UNCHECKED_CAST")
 class PotatoFragment : BaseFragment<SharedViewModel>() {
+
+    companion object {
+        private const val potato = 3
+    }
 
     @Inject
     lateinit var repository: AppRepository
@@ -41,5 +46,13 @@ class PotatoFragment : BaseFragment<SharedViewModel>() {
             layoutManager = LinearLayoutManager(context!!, LinearLayoutManager.VERTICAL, false)
             adapter = potatoAdapter
         }
+
+        viewModel.getAllMeals(PotatoFragment.potato).observe(viewLifecycleOwner, Observer { meals ->
+            meals?.let {
+                potatoAdapter.setMeals(it)
+            }
+
+            return@Observer
+        })
     }
 }

@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import at.bwappsandmore.whattocook.R
 import at.bwappsandmore.whattocook.base.BaseFragment
-
 import at.bwappsandmore.whattocook.repository.AppRepository
 import at.bwappsandmore.whattocook.ui.fish.adapter.FishAdapter
 import at.bwappsandmore.whattocook.ui.viewmodel.SharedViewModel

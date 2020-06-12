@@ -35,9 +35,6 @@ android {
     androidExtensions {
         experimental = true
     }
-    buildFeatures{
-        dataBinding = true
-    }
 }
 
 dependencies {

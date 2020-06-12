@@ -2,6 +2,7 @@ package at.bwappsandmore.whattocook.ui.stew.fragment
 
 import android.os.Bundle
 import android.view.View
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import at.bwappsandmore.whattocook.R
@@ -14,6 +15,11 @@ import javax.inject.Inject
 
 @Suppress("UNCHECKED_CAST")
 class StewFragment : BaseFragment<SharedViewModel>() {
+
+    companion object {
+        private const val stew = 6
+    }
+
     @Inject
     lateinit var repository: AppRepository
 
@@ -37,5 +43,13 @@ class StewFragment : BaseFragment<SharedViewModel>() {
             layoutManager = LinearLayoutManager(context!!, LinearLayoutManager.VERTICAL, false)
             adapter = stewAdapter
         }
+
+        viewModel.getAllMeals(StewFragment.stew).observe(viewLifecycleOwner, Observer { meals ->
+            meals?.let {
+                stewAdapter.setMeals(it)
+            }
+
+            return@Observer
+        })
     }
 }

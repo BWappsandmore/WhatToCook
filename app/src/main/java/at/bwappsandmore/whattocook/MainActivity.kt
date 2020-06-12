@@ -42,6 +42,9 @@ class MainActivity : BaseActivity<SharedViewModel>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        viewPager.adapter = PagerAdapter(supportFragmentManager, lifecycle)
+        viewPager.orientation = ViewPager2.ORIENTATION_HORIZONTAL
+
         viewPager.setPageTransformer { page, position ->
             with(page) {
                 pivotX = if (position < 0F) width.toFloat() else 0F
@@ -49,10 +52,6 @@ class MainActivity : BaseActivity<SharedViewModel>() {
                 rotationY = ROTATION_Y_COEFFICIENT * position
             }
         }
-
-        viewPager.orientation = ViewPager2.ORIENTATION_HORIZONTAL
-
-        viewPager.adapter = PagerAdapter(supportFragmentManager, lifecycle)
 
         TabLayoutMediator(
             tabs,
@@ -71,8 +70,13 @@ class MainActivity : BaseActivity<SharedViewModel>() {
             }).attach()
 
         main_fab.setOnClickListener {
-            viewModel.insertMeal(MealEntity(0, viewPager.currentItem, mealNameEt.text.toString()))
-            mealNameEt.text.clear()
+            mealNameEt.text.toString().trim().isNotEmpty().apply {
+                if (mealNameEt.text.toString().trim() != "") {
+                    viewModel.insertMeal(MealEntity(0, viewPager.currentItem, mealNameEt.text.toString()))
+                    mealNameEt.text.clear()
+                }
+            }
+            hideSoftKeyboard(this)
         }
     }
 

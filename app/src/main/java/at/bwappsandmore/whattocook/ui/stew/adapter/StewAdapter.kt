@@ -5,17 +5,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import at.bwappsandmore.whattocook.R
-import at.bwappsandmore.whattocook.room.StewEntity
+import at.bwappsandmore.whattocook.room.MealEntity
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.recyclerview_item.view.*
 
 class StewAdapter(
-    private val onActionClicked: (StewEntity) -> Unit,
-    private val onActionLongClicked: (StewEntity) -> Unit
+    private val onActionClicked: (MealEntity) -> Unit,
+    private val onActionLongClicked: (MealEntity) -> Unit
 ) :
     RecyclerView.Adapter<StewAdapter.StewpotViewHolder>() {
-    var meals = emptyList<StewEntity>()
-    internal fun setMeals(meals: List<StewEntity>) {
+    var meals = emptyList<MealEntity>()
+    internal fun setMeals(meals: List<MealEntity>) {
         this.meals = meals
         notifyDataSetChanged()
     }
@@ -46,7 +46,7 @@ class StewAdapter(
             }
         }
 
-        fun bind(meal: StewEntity) {
+        fun bind(meal: MealEntity) {
             itemView.meal_name.text = meal.mealName
         }
     }
