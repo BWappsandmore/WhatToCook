@@ -12,7 +12,7 @@ data class MealEntity(
     @PrimaryKey(autoGenerate = true)
     var id: Int,
     @ColumnInfo(name="mealType")
-    val mealType: String,
+    val mealType: Int,
     @ColumnInfo(name = "mealName")
     var mealName: String
 ): Parcelable

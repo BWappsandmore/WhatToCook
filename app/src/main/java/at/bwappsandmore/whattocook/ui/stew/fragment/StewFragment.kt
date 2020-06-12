@@ -2,13 +2,10 @@ package at.bwappsandmore.whattocook.ui.stew.fragment
 
 import android.os.Bundle
 import android.view.View
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import at.bwappsandmore.whattocook.R
 import at.bwappsandmore.whattocook.base.BaseFragment
-import at.bwappsandmore.whattocook.databinding.FragmentStewBinding
 import at.bwappsandmore.whattocook.repository.AppRepository
 import at.bwappsandmore.whattocook.ui.stew.adapter.StewAdapter
 import at.bwappsandmore.whattocook.ui.viewmodel.SharedViewModel
@@ -16,7 +13,7 @@ import kotlinx.android.synthetic.main.fragment_stew.*
 import javax.inject.Inject
 
 @Suppress("UNCHECKED_CAST")
-class StewFragment : BaseFragment<FragmentStewBinding, SharedViewModel>() {
+class StewFragment : BaseFragment<SharedViewModel>() {
     @Inject
     lateinit var repository: AppRepository
 
@@ -31,7 +28,6 @@ class StewFragment : BaseFragment<FragmentStewBinding, SharedViewModel>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        dataBinding.viewModel = viewModel
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

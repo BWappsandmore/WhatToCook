@@ -7,5 +7,5 @@
     <string name="tab_rice">Tab RiceFragment</string>
     <string name="tab_nosidedish">Tab NoSideDishFragment</string>
     <string name="tab_stew">Tab StewFragment</string>
-    <string name="meal">enter meal</string>
+    <string name="meal">enter meal…</string>
 </resources>

@@ -2,12 +2,10 @@ package at.bwappsandmore.whattocook.ui.nogarnish.fragment
 
 import android.os.Bundle
 import android.view.View
-
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import at.bwappsandmore.whattocook.R
 import at.bwappsandmore.whattocook.base.BaseFragment
-import at.bwappsandmore.whattocook.databinding.FragmentNogarnishBinding
 import at.bwappsandmore.whattocook.repository.AppRepository
 import at.bwappsandmore.whattocook.ui.nogarnish.adapter.NoSideDishAdapter
 import at.bwappsandmore.whattocook.ui.viewmodel.SharedViewModel
@@ -15,7 +13,7 @@ import kotlinx.android.synthetic.main.fragment_nogarnish.*
 import javax.inject.Inject
 
 @Suppress("UNCHECKED_CAST")
-class NoGarnishFragment : BaseFragment<FragmentNogarnishBinding, SharedViewModel>() {
+class NoGarnishFragment : BaseFragment<SharedViewModel>() {
     @Inject
     lateinit var repository: AppRepository
 
@@ -34,7 +32,6 @@ class NoGarnishFragment : BaseFragment<FragmentNogarnishBinding, SharedViewModel
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        dataBinding.viewModel = viewModel
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

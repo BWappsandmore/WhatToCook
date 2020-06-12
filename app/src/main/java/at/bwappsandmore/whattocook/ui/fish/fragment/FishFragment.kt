@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import at.bwappsandmore.whattocook.R
 import at.bwappsandmore.whattocook.base.BaseFragment
-import at.bwappsandmore.whattocook.databinding.FragmentFishBinding
+
 import at.bwappsandmore.whattocook.repository.AppRepository
 import at.bwappsandmore.whattocook.ui.fish.adapter.FishAdapter
 import at.bwappsandmore.whattocook.ui.viewmodel.SharedViewModel
@@ -14,7 +14,7 @@ import kotlinx.android.synthetic.main.fragment_fish.*
 import javax.inject.Inject
 
 @Suppress("UNCHECKED_CAST")
-class FishFragment : BaseFragment<FragmentFishBinding, SharedViewModel>(){
+class FishFragment : BaseFragment<SharedViewModel>(){
 
     @Inject
     lateinit var repository: AppRepository
@@ -30,7 +30,6 @@ class FishFragment : BaseFragment<FragmentFishBinding, SharedViewModel>(){
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        dataBinding.viewModel = viewModel
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
