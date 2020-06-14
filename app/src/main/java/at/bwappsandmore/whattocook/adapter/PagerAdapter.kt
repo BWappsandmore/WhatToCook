@@ -4,13 +4,13 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import at.bwappsandmore.whattocook.ui.fish.fragment.FishFragment
-import at.bwappsandmore.whattocook.ui.mealplan.fragment.MealPlanFragment
-import at.bwappsandmore.whattocook.ui.noodle.fragment.NoodleFragment
-import at.bwappsandmore.whattocook.ui.nogarnish.fragment.NoGarnishFragment
-import at.bwappsandmore.whattocook.ui.potato.fragment.PotatoFragment
-import at.bwappsandmore.whattocook.ui.rice.fragment.RiceFragment
-import at.bwappsandmore.whattocook.ui.stew.fragment.StewFragment
+import at.bwappsandmore.whattocook.ui.view.FishFragment
+import at.bwappsandmore.whattocook.ui.view.MealPlanFragment
+import at.bwappsandmore.whattocook.ui.view.NoodleFragment
+import at.bwappsandmore.whattocook.ui.view.NoGarnishFragment
+import at.bwappsandmore.whattocook.ui.view.PotatoFragment
+import at.bwappsandmore.whattocook.ui.view.RiceFragment
+import at.bwappsandmore.whattocook.ui.view.StewFragment
 
 class PagerAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle) :
     FragmentStateAdapter(fragmentManager, lifecycle) {

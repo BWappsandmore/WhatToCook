@@ -1,4 +1,4 @@
-package at.bwappsandmore.whattocook.ui
+package at.bwappsandmore.whattocook.ui.view
 
 import at.bwappsandmore.whattocook.R
 import at.bwappsandmore.whattocook.base.BaseFragment

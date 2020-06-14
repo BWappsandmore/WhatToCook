@@ -80,6 +80,10 @@ class MainActivity : BaseActivity<SharedViewModel>() {
         }
     }
 
+/*    override fun onBackPressed() {
+        viewModel.getAllMeals(viewPager.currentItem)
+    }*/
+
     override fun inject() {
         DaggerAppComponent.builder().appModule(AppModule(application)).build().inject(this)
     }
