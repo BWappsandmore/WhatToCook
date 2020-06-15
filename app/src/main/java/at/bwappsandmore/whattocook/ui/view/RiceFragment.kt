@@ -30,8 +30,8 @@ class RiceFragment : BaseFragment<SharedViewModel>() {
         }
     },{ item, actionId ->
         when (actionId) {
-            ActionType.DELETE -> (activity as MainActivity).addFragment(R.id.smallContainer,
-                DeleteMealFragment(), true)
+            ActionType.DELCOPY -> (activity as MainActivity).addFragment(R.id.smallContainer,
+                (activity as MainActivity).getInstanceDelFragment(item), true)
             else -> {}
         }
     })

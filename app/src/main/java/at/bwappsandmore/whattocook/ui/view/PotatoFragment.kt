@@ -19,10 +19,6 @@ import javax.inject.Inject
 @Suppress("UNCHECKED_CAST")
 class PotatoFragment : BaseFragment<SharedViewModel>() {
 
-    companion object {
-        private const val potato = 3
-    }
-
     @Inject
     lateinit var repository: AppRepository
 
@@ -33,8 +29,8 @@ class PotatoFragment : BaseFragment<SharedViewModel>() {
         }
     },{ item, actionId ->
         when (actionId) {
-            ActionType.DELETE -> (activity as MainActivity).addFragment(R.id.smallContainer,
-                DeleteMealFragment(), true)
+            ActionType.DELCOPY -> (activity as MainActivity).addFragment(R.id.smallContainer,
+                (activity as MainActivity).getInstanceDelFragment(item), true)
             else -> {}
         }
     })

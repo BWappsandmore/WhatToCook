@@ -1,11 +1,4 @@
 <resources>
     <string name="app_name">WhatToCook</string>
-    <string name="tab_mealplan">Tab MealPlanFragment</string>
-    <string name="tab_noodle">Tab NoodleFragment</string>
-    <string name="tab_fish">Tab FishFragment</string>
-    <string name="tab_potato">Tab PotatoFragment</string>
-    <string name="tab_rice">Tab RiceFragment</string>
-    <string name="tab_nosidedish">Tab NoSideDishFragment</string>
-    <string name="tab_stew">Tab StewFragment</string>
     <string name="meal">enter meal…</string>
 </resources>

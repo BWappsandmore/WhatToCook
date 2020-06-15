@@ -45,7 +45,7 @@ class FragmentAdapter(
                     onActionClicked(meals[adapterPosition], ActionType.EDIT)
                 }
                 setOnLongClickListener {
-                    onActionLongClicked(meals[adapterPosition], ActionType.DELETE)
+                    onActionLongClicked(meals[adapterPosition], ActionType.DELCOPY)
                     select(it)
                     return@setOnLongClickListener true
                 }
@@ -60,6 +60,13 @@ class FragmentAdapter(
             v.apply {
                 setBackgroundColor(Color.parseColor("#5856d8"))
                 meal_name.setTextColor(Color.WHITE)
+            }
+        }
+
+        private fun deselect(v: View) {
+            v.apply {
+                setBackgroundColor(0x00000000)
+                meal_name.setTextColor(Color.BLACK)
             }
         }
     }

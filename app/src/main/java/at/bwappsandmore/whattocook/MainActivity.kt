@@ -10,6 +10,7 @@ import at.bwappsandmore.whattocook.di.AppModule
 import at.bwappsandmore.whattocook.di.DaggerAppComponent
 import at.bwappsandmore.whattocook.repository.AppRepository
 import at.bwappsandmore.whattocook.room.MealEntity
+import at.bwappsandmore.whattocook.ui.view.DelCopyMealFragment
 import at.bwappsandmore.whattocook.ui.viewmodel.SharedViewModel
 import at.bwappsandmore.whattocook.ui.viewmodel.SharedViewModelImpl
 import com.google.android.material.tabs.TabLayoutMediator
@@ -80,11 +81,15 @@ class MainActivity : BaseActivity<SharedViewModel>() {
         }
     }
 
-/*    override fun onBackPressed() {
-        viewModel.getAllMeals(viewPager.currentItem)
-    }*/
-
     override fun inject() {
         DaggerAppComponent.builder().appModule(AppModule(application)).build().inject(this)
+    }
+
+    fun getInstanceDelFragment(mealEntity: MealEntity): DelCopyMealFragment {
+        val fragment = DelCopyMealFragment()
+        val bundle = Bundle()
+        bundle.putParcelable("item", mealEntity)
+        fragment.arguments = bundle
+        return fragment
     }
 }

@@ -24,14 +24,18 @@ class NoGarnishFragment : BaseFragment<SharedViewModel>() {
 
     private var noGarnishAdapter = FragmentAdapter({ item, actionId ->
         when (actionId) {
-            ActionType.EDIT -> Log.d("edit","edit")
-            else -> {}
+            ActionType.EDIT -> Log.d("edit", "edit")
+            else -> {
+            }
         }
-    },{ item, actionId ->
+    }, { item, actionId ->
         when (actionId) {
-            ActionType.DELETE -> (activity as MainActivity).addFragment(R.id.smallContainer,
-                DeleteMealFragment(), true)
-            else -> {}
+            ActionType.DELCOPY -> (activity as MainActivity).addFragment(
+                R.id.smallContainer,
+                (activity as MainActivity).getInstanceDelFragment(item), true
+            )
+            else -> {
+            }
         }
     })
 

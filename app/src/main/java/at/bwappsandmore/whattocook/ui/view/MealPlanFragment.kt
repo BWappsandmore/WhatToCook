@@ -2,7 +2,6 @@ package at.bwappsandmore.whattocook.ui.view
 
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import at.bwappsandmore.whattocook.MainActivity
@@ -30,19 +29,14 @@ class MealPlanFragment : BaseFragment<SharedViewModel>() {
         }
     },{ item, actionId ->
         when (actionId) {
-            ActionType.DELETE -> (activity as MainActivity).addFragment(R.id.smallContainer,
-                DeleteMealFragment(), true)
+            ActionType.DELCOPY -> (activity as MainActivity).addFragment(R.id.smallContainer,
+                (activity as MainActivity).getInstanceDelFragment(item), true)
             else -> {}
         }
     })
 
     override fun getLayoutResource(): Int = R.layout.fragment_mealplan
     override fun getViewModelClass(): Class<SharedViewModel> = SharedViewModel::class.java
-
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-    }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
