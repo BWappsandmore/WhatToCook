@@ -2,6 +2,7 @@ package at.bwappsandmore.whattocook.ui.view
 
 import android.os.Bundle
 import android.util.Log
+import android.widget.Adapter
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -30,7 +31,7 @@ class NoodleFragment : BaseFragment<SharedViewModel>() {
     },{ item, actionId ->
         when (actionId) {
             ActionType.DELCOPY -> (activity as MainActivity).addFragment(R.id.smallContainer,
-                (activity as MainActivity).getInstanceDelFragment(item), true)
+                (activity as MainActivity).getInstanceDelFragment(item, NOODLE.value), true)
             else -> {}
         }
     })

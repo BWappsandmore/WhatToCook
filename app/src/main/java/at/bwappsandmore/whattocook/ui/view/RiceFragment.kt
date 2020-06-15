@@ -31,7 +31,7 @@ class RiceFragment : BaseFragment<SharedViewModel>() {
     },{ item, actionId ->
         when (actionId) {
             ActionType.DELCOPY -> (activity as MainActivity).addFragment(R.id.smallContainer,
-                (activity as MainActivity).getInstanceDelFragment(item), true)
+                (activity as MainActivity).getInstanceDelFragment(item, RICE.value), true)
             else -> {}
         }
     })

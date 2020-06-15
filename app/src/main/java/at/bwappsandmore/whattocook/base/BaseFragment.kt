@@ -13,7 +13,6 @@ abstract class BaseFragment<T : BaseViewModel> : Fragment() {
     abstract fun getLayoutResource(): Int
     abstract fun getViewModelClass(): Class<T>
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         activity?.let {

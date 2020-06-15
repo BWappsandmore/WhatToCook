@@ -3,6 +3,7 @@ package at.bwappsandmore.whattocook.base
 import android.app.Activity
 import android.os.Bundle
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.annotation.IdRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -37,4 +38,6 @@ abstract class BaseActivity <T: BaseViewModel> : AppCompatActivity() {
         val inputMethodManager: InputMethodManager = activity?.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
         inputMethodManager.hideSoftInputFromWindow(activity.currentFocus?.windowToken, 0)
     }
+
+    fun showToast(message: String) = Toast.makeText(this, message, Toast.LENGTH_LONG).show()
 }

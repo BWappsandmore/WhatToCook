@@ -30,7 +30,7 @@ class PotatoFragment : BaseFragment<SharedViewModel>() {
     },{ item, actionId ->
         when (actionId) {
             ActionType.DELCOPY -> (activity as MainActivity).addFragment(R.id.smallContainer,
-                (activity as MainActivity).getInstanceDelFragment(item), true)
+                (activity as MainActivity).getInstanceDelFragment(item, POTATO.value), true)
             else -> {}
         }
     })

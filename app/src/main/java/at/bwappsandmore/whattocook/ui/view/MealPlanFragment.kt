@@ -9,8 +9,8 @@ import at.bwappsandmore.whattocook.R
 import at.bwappsandmore.whattocook.adapter.FragmentAdapter
 import at.bwappsandmore.whattocook.base.BaseFragment
 import at.bwappsandmore.whattocook.enums.ActionType
+import at.bwappsandmore.whattocook.enums.MealType.*
 import at.bwappsandmore.whattocook.repository.AppRepository
-
 import at.bwappsandmore.whattocook.ui.viewmodel.SharedViewModel
 import kotlinx.android.synthetic.main.fragment_mealplan.*
 import javax.inject.Inject
@@ -30,7 +30,7 @@ class MealPlanFragment : BaseFragment<SharedViewModel>() {
     },{ item, actionId ->
         when (actionId) {
             ActionType.DELCOPY -> (activity as MainActivity).addFragment(R.id.smallContainer,
-                (activity as MainActivity).getInstanceDelFragment(item), true)
+                (activity as MainActivity).getInstanceDelFragment(item, MEAL.value), true)
             else -> {}
         }
     })

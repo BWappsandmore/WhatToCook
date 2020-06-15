@@ -2,6 +2,7 @@ package at.bwappsandmore.whattocook.ui.view
 
 import android.os.Bundle
 import android.util.Log
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import at.bwappsandmore.whattocook.MainActivity
@@ -9,6 +10,7 @@ import at.bwappsandmore.whattocook.R
 import at.bwappsandmore.whattocook.adapter.FragmentAdapter
 import at.bwappsandmore.whattocook.base.BaseFragment
 import at.bwappsandmore.whattocook.enums.ActionType
+import at.bwappsandmore.whattocook.enums.MealType.*
 import at.bwappsandmore.whattocook.repository.AppRepository
 import at.bwappsandmore.whattocook.ui.viewmodel.SharedViewModel
 import kotlinx.android.synthetic.main.fragment_fish.*
@@ -28,7 +30,7 @@ class FishFragment : BaseFragment<SharedViewModel>(){
     },{ item, actionId ->
         when (actionId) {
             ActionType.DELCOPY -> (activity as MainActivity).addFragment(R.id.smallContainer,
-                (activity as MainActivity).getInstanceDelFragment(item), true)
+                (activity as MainActivity).getInstanceDelFragment(item, FISH.value), true)
             else -> {}
         }
     })
@@ -43,5 +45,12 @@ class FishFragment : BaseFragment<SharedViewModel>(){
             layoutManager = LinearLayoutManager(context!!, LinearLayoutManager.VERTICAL, false)
             adapter = fishAdapter
         }
+        viewModel.getAllMeals(FISH.value).observe(viewLifecycleOwner, Observer { meals ->
+            meals?.let {
+                fishAdapter.setMeals(it)
+            }
+            return@Observer
+        })
+
     }
 }

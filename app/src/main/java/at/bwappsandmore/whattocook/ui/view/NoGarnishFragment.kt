@@ -32,7 +32,7 @@ class NoGarnishFragment : BaseFragment<SharedViewModel>() {
         when (actionId) {
             ActionType.DELCOPY -> (activity as MainActivity).addFragment(
                 R.id.smallContainer,
-                (activity as MainActivity).getInstanceDelFragment(item), true
+                (activity as MainActivity).getInstanceDelFragment(item, NOGARNISH.value), true
             )
             else -> {
             }

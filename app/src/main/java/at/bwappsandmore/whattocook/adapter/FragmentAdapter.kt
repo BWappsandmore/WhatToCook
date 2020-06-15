@@ -53,6 +53,7 @@ class FragmentAdapter(
         }
 
         fun bind(meal: MealEntity) {
+            deselect(itemView)
             itemView.meal_name.text = meal.mealName
         }
 

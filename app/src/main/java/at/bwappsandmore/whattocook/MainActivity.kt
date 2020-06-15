@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
+import at.bwappsandmore.whattocook.adapter.FragmentAdapter
 import at.bwappsandmore.whattocook.adapter.PagerAdapter
 import at.bwappsandmore.whattocook.base.BaseActivity
 import at.bwappsandmore.whattocook.di.AppModule
@@ -85,10 +86,11 @@ class MainActivity : BaseActivity<SharedViewModel>() {
         DaggerAppComponent.builder().appModule(AppModule(application)).build().inject(this)
     }
 
-    fun getInstanceDelFragment(mealEntity: MealEntity): DelCopyMealFragment {
+    fun getInstanceDelFragment(mealEntity: MealEntity, comesFrom: Int): DelCopyMealFragment {
         val fragment = DelCopyMealFragment()
         val bundle = Bundle()
         bundle.putParcelable("item", mealEntity)
+        bundle.putInt("fromFragment", comesFrom)
         fragment.arguments = bundle
         return fragment
     }
