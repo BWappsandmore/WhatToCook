@@ -32,4 +32,18 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_baseline_file_copy_24"
         tools:ignore="ContentDescription" />
+
+    <ImageButton
+        android:id="@+id/shareIB"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginStart="16dp"
+        android:layout_weight="1"
+        android:background="@color/colorPrimary"
+        android:gravity="start|center_vertical"
+        app:layout_constraintStart_toEndOf="@+id/copyIB"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_baseline_share_24"
+        tools:ignore="ContentDescription" />
 </androidx.constraintlayout.widget.ConstraintLayout>

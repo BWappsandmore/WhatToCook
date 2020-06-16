@@ -3,6 +3,7 @@ package at.bwappsandmore.whattocook.ui.view
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.core.content.ContextCompat
@@ -14,9 +15,8 @@ import at.bwappsandmore.whattocook.room.MealEntity
 import at.bwappsandmore.whattocook.ui.viewmodel.SharedViewModel
 import kotlinx.android.synthetic.main.fragment_del_copy.*
 import javax.inject.Inject
-import kotlin.properties.Delegates
 
-class DelCopyMealFragment : BaseFragment<SharedViewModel>() {
+class DelCopyShareFragment : BaseFragment<SharedViewModel>() {
     @Inject
     lateinit var repository: AppRepository
 
@@ -37,9 +37,7 @@ class DelCopyMealFragment : BaseFragment<SharedViewModel>() {
         super.onViewCreated(view, savedInstanceState)
         deleteIB.setOnClickListener {
             viewModel.deleteMeal(mealEntity)
-            requireActivity().supportFragmentManager.beginTransaction()
-                .remove(this)
-                .commit()
+            closeFragment()
             (activity as MainActivity).showToast("Meal has been removed")
             viewModel.getAllMeals(comesFrom)
         }
@@ -47,6 +45,21 @@ class DelCopyMealFragment : BaseFragment<SharedViewModel>() {
         copyIB.setOnClickListener {
             this.context?.copyToClipboard(mealEntity.mealName)
             (activity as MainActivity).showToast("Copied to clipboard")
+            closeFragment()
+            viewModel.getAllMeals(comesFrom)
+        }
+
+        shareIB.setOnClickListener {
+            val sendMessage = mealEntity.mealName
+            val sendIntent = Intent().apply{
+                action = Intent.ACTION_SEND
+                putExtra(Intent.EXTRA_SUBJECT, "WhatToCook")
+                putExtra(Intent.EXTRA_TEXT, sendMessage)
+                type = "text/plain"
+            }
+            val shareIntent = Intent.createChooser(sendIntent, "WhatToCook")
+            startActivity(shareIntent)
+            closeFragment()
             viewModel.getAllMeals(comesFrom)
         }
     }
@@ -56,5 +69,11 @@ class DelCopyMealFragment : BaseFragment<SharedViewModel>() {
             ContextCompat.getSystemService(this.applicationContext, ClipboardManager::class.java)
         val clip = ClipData.newPlainText("label", text)
         clipboard?.setPrimaryClip(clip)
+    }
+
+    private fun closeFragment() {
+        requireActivity().supportFragmentManager.beginTransaction()
+            .remove(this)
+            .commit()
     }
 }

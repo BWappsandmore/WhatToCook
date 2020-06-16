@@ -8,6 +8,8 @@ import androidx.annotation.IdRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import at.bwappsandmore.whattocook.room.MealEntity
+import at.bwappsandmore.whattocook.ui.view.DelCopyShareFragment
 
 abstract class BaseActivity <T: BaseViewModel> : AppCompatActivity() {
 
@@ -40,4 +42,13 @@ abstract class BaseActivity <T: BaseViewModel> : AppCompatActivity() {
     }
 
     fun showToast(message: String) = Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+
+    fun getInstanceDelFragment(mealEntity: MealEntity, comesFrom: Int): DelCopyShareFragment {
+        val fragment = DelCopyShareFragment()
+        val bundle = Bundle()
+        bundle.putParcelable("item", mealEntity)
+        bundle.putInt("fromFragment", comesFrom)
+        fragment.arguments = bundle
+        return fragment
+    }
 }

@@ -1,17 +1,18 @@
 package at.bwappsandmore.whattocook
 
+import android.content.SharedPreferences
 import android.os.Bundle
+import androidx.core.content.edit
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
-import at.bwappsandmore.whattocook.adapter.FragmentAdapter
 import at.bwappsandmore.whattocook.adapter.PagerAdapter
 import at.bwappsandmore.whattocook.base.BaseActivity
 import at.bwappsandmore.whattocook.di.AppModule
 import at.bwappsandmore.whattocook.di.DaggerAppComponent
 import at.bwappsandmore.whattocook.repository.AppRepository
 import at.bwappsandmore.whattocook.room.MealEntity
-import at.bwappsandmore.whattocook.ui.view.DelCopyMealFragment
+import at.bwappsandmore.whattocook.ui.view.DelCopyShareFragment
 import at.bwappsandmore.whattocook.ui.viewmodel.SharedViewModel
 import at.bwappsandmore.whattocook.ui.viewmodel.SharedViewModelImpl
 import com.google.android.material.tabs.TabLayoutMediator
@@ -23,6 +24,11 @@ class MainActivity : BaseActivity<SharedViewModel>() {
 
     @Inject
     lateinit var repository: AppRepository
+
+    @Inject
+    lateinit var sharedPreferences: SharedPreferences
+
+    var fabImgRes = R.drawable.ic_add_white_24dp
 
     override fun getLayoutResource(): Int = R.layout.activity_main
     override fun getViewModelClass(): Class<SharedViewModel> = SharedViewModel::class.java
@@ -74,8 +80,15 @@ class MainActivity : BaseActivity<SharedViewModel>() {
         main_fab.setOnClickListener {
             mealNameEt.text.toString().trim().isNotEmpty().apply {
                 if (mealNameEt.text.toString().trim() != "") {
-                    viewModel.insertMeal(MealEntity(0, viewPager.currentItem, mealNameEt.text.toString()))
+                    if(fabImgRes == R.drawable.ic_add_white_24dp) {
+                        viewModel.insertMeal(MealEntity(0, viewPager.currentItem, mealNameEt.text.toString()))
+                    } else
+                    {
+                        viewModel.updateMeal(mealNameEt.text.toString(),viewPager.currentItem,sharedPreferences.getInt("mealId",0))
+                    }
+
                     mealNameEt.text.clear()
+                    main_fab.setImageResource(R.drawable.ic_add_white_24dp)
                 }
             }
             hideSoftKeyboard(this)
@@ -86,12 +99,15 @@ class MainActivity : BaseActivity<SharedViewModel>() {
         DaggerAppComponent.builder().appModule(AppModule(application)).build().inject(this)
     }
 
-    fun getInstanceDelFragment(mealEntity: MealEntity, comesFrom: Int): DelCopyMealFragment {
-        val fragment = DelCopyMealFragment()
-        val bundle = Bundle()
-        bundle.putParcelable("item", mealEntity)
-        bundle.putInt("fromFragment", comesFrom)
-        fragment.arguments = bundle
-        return fragment
+    override fun onBackPressed() {
+        mealNameEt.text.clear()
+        main_fab.setImageResource(R.drawable.ic_add_white_24dp)
+        viewModel.getAllMeals(viewPager.currentItem)
+        super.onBackPressed()
     }
+
+    fun putIdToSharedPrefs(mealEntity: MealEntity) {
+        sharedPreferences.edit{putInt("mealId", mealEntity.id)}
+    }
+
 }

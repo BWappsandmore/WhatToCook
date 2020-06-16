@@ -13,4 +13,7 @@ interface WhatToCookDao {
 
     @Delete
     suspend fun delete(meal: MealEntity)
+
+    @Query("UPDATE MealEntity SET mealName =:mealName, mealType= :mealType WHERE id= :id")
+    fun updateMeal(mealName: String, mealType:Int, id:Int): Int
 }

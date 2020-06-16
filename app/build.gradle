@@ -70,4 +70,7 @@ dependencies {
 
     //ViewPager2
     implementation 'androidx.viewpager2:viewpager2:1.0.0'
+
+    //Shared Preferences
+    implementation "androidx.preference:preference:1.1.1"
 }

@@ -9,6 +9,8 @@ abstract class SharedViewModel : BaseViewModel() {
     abstract fun getAllMeals(mealType: Int): LiveData<List<MealEntity>>
     abstract fun insertMeal(meal: MealEntity)
     abstract fun deleteMeal(meal: MealEntity)
+    abstract fun updateMeal(mealName: String, mealType:Int, id:Int)
+
 }
 
 class SharedViewModelImpl(private val repository: AppRepository) : SharedViewModel() {
@@ -24,4 +26,7 @@ class SharedViewModelImpl(private val repository: AppRepository) : SharedViewMod
         repository.delete(meal)
     }
 
+    override fun updateMeal(mealName: String, mealType: Int, id: Int) {
+        repository.updateMeal(mealName, mealType, id)
+    }
 }
