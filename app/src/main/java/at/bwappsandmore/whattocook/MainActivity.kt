@@ -2,6 +2,7 @@ package at.bwappsandmore.whattocook
 
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.view.View
 import androidx.core.content.edit
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -13,6 +14,7 @@ import at.bwappsandmore.whattocook.di.DaggerAppComponent
 import at.bwappsandmore.whattocook.repository.AppRepository
 import at.bwappsandmore.whattocook.room.MealEntity
 import at.bwappsandmore.whattocook.ui.view.DelCopyShareFragment
+import at.bwappsandmore.whattocook.ui.view.InsertFishMealFragment
 import at.bwappsandmore.whattocook.ui.viewmodel.SharedViewModel
 import at.bwappsandmore.whattocook.ui.viewmodel.SharedViewModelImpl
 import com.google.android.material.tabs.TabLayoutMediator
@@ -77,21 +79,62 @@ class MainActivity : BaseActivity<SharedViewModel>() {
                 }
             }).attach()
 
-        main_fab.setOnClickListener {
-            mealNameEt.text.toString().trim().isNotEmpty().apply {
-                if (mealNameEt.text.toString().trim() != "") {
-                    if(fabImgRes == R.drawable.ic_add_white_24dp) {
-                        viewModel.insertMeal(MealEntity(0, viewPager.currentItem, mealNameEt.text.toString()))
-                    } else
-                    {
-                        viewModel.updateMeal(mealNameEt.text.toString(),viewPager.currentItem,sharedPreferences.getInt("mealId",0))
+        viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                when (position) {
+                    0, 1 -> {
+                        mealNameEt.visibility = View.GONE
+                        main_fab.visibility = View.GONE
+                        altern_fab.visibility = View.VISIBLE
                     }
+                    else -> {
+                        mealNameEt.visibility = View.VISIBLE
+                        main_fab.visibility = View.VISIBLE
+                        altern_fab.visibility = View.GONE
+                    }
+                }
+                super.onPageSelected(position)
+            }
+        })
 
-                    mealNameEt.text.clear()
-                    main_fab.setImageResource(R.drawable.ic_add_white_24dp)
+        altern_fab.setOnClickListener {
+            when (viewPager.currentItem) {
+                1 -> {
+                    val fragmentManager = supportFragmentManager
+                    val fragmentTransaction = fragmentManager.beginTransaction()
+                    val fragment = InsertFishMealFragment()
+                    fragmentTransaction.add(R.id.container, fragment)
+                    fragmentTransaction.commit()
+                }
+                else -> {
                 }
             }
-            hideSoftKeyboard(this)
+
+            main_fab.setOnClickListener {
+                mealNameEt.text.toString().trim().isNotEmpty().apply {
+                    if (mealNameEt.text.toString().trim() != "") {
+                        if (fabImgRes == R.drawable.ic_add_white_24dp) {
+                            viewModel.insertMeal(
+                                MealEntity(
+                                    0,
+                                    viewPager.currentItem,
+                                    mealNameEt.text.toString()
+                                )
+                            )
+                        } else {
+                            viewModel.updateMeal(
+                                mealNameEt.text.toString(),
+                                viewPager.currentItem,
+                                sharedPreferences.getInt("mealId", 0)
+                            )
+                        }
+
+                        mealNameEt.text.clear()
+                        main_fab.setImageResource(R.drawable.ic_add_white_24dp)
+                    }
+                }
+                hideSoftKeyboard(this)
+            }
         }
     }
 
@@ -107,7 +150,7 @@ class MainActivity : BaseActivity<SharedViewModel>() {
     }
 
     fun putIdToSharedPrefs(mealEntity: MealEntity) {
-        sharedPreferences.edit{putInt("mealId", mealEntity.id)}
+        sharedPreferences.edit { putInt("mealId", mealEntity.id) }
     }
 
 }
