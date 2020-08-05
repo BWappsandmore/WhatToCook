@@ -13,6 +13,7 @@ import at.bwappsandmore.whattocook.enums.ActionType
 import at.bwappsandmore.whattocook.enums.MealType.*
 import at.bwappsandmore.whattocook.repository.AppRepository
 import at.bwappsandmore.whattocook.ui.viewmodel.SharedViewModel
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_potato.*
 import javax.inject.Inject
 
@@ -24,7 +25,12 @@ class PotatoFragment : BaseFragment<SharedViewModel>() {
 
     private var potatoAdapter = FragmentAdapter({ item, actionId ->
         when (actionId) {
-            ActionType.EDIT -> Log.d("edit","edit")
+            ActionType.EDIT -> {
+                (activity as MainActivity).mealNameEt.setText(item.mealName)
+                (activity as MainActivity).main_fab.setImageResource(R.drawable.ic_baseline_edit_24)
+                (activity as MainActivity).fabImgRes = R.drawable.ic_baseline_edit_24
+                (activity as MainActivity).putIdToSharedPrefs(item)
+            }
             else -> {}
         }
     },{ item, actionId ->
@@ -41,14 +47,14 @@ class PotatoFragment : BaseFragment<SharedViewModel>() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         potatoRv.apply {
-            addItemDecoration(DividerItemDecoration(context!!, LinearLayoutManager.VERTICAL))
-            layoutManager = LinearLayoutManager(context!!, LinearLayoutManager.VERTICAL, false)
+            addItemDecoration(DividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL))
+            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
             adapter = potatoAdapter
         }
 
         viewModel.getAllMeals(POTATO.value).observe(viewLifecycleOwner, Observer { meals ->
             meals?.let {
-                potatoAdapter.setMeals(it)
+                potatoAdapter.replaceAll(it)
             }
             return@Observer
         })
