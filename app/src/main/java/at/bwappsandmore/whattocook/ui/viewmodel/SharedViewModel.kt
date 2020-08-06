@@ -1,18 +1,14 @@
 package at.bwappsandmore.whattocook.ui.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import at.bwappsandmore.whattocook.base.BaseViewModel
 import at.bwappsandmore.whattocook.enums.MealType
-import at.bwappsandmore.whattocook.liveData.Action
 import at.bwappsandmore.whattocook.repository.AppRepository
 import at.bwappsandmore.whattocook.room.ListMealsEntity
 import at.bwappsandmore.whattocook.room.MealEntity
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.plusAssign
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.activity_main.*
-
 
 abstract class SharedViewModel : BaseViewModel() {
     abstract fun getAllMeals(mealType: Int): LiveData<List<MealEntity>>
