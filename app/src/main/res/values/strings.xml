@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">WhatToCook</string>
     <string name="meal">enter meal…</string>
-    <string name="fish">fish</string>
-    <string name="toCook">the dish with fish</string>
+    <string name="fish">type the fish</string>
+    <string name="toCook">the dish with the fish</string>
     <string name="withGarnish">choose garnish:</string>
 </resources>

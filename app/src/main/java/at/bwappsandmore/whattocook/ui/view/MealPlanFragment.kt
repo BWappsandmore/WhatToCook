@@ -12,6 +12,7 @@ import at.bwappsandmore.whattocook.enums.ActionType
 import at.bwappsandmore.whattocook.enums.MealType.*
 import at.bwappsandmore.whattocook.repository.AppRepository
 import at.bwappsandmore.whattocook.ui.viewmodel.SharedViewModel
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_mealplan.*
 import javax.inject.Inject
 
@@ -24,7 +25,12 @@ class MealPlanFragment : BaseFragment<SharedViewModel>() {
 
     private var mealPlanAdapter = FragmentAdapter({ item, actionId ->
         when (actionId) {
-            ActionType.EDIT -> Log.d("edit","edit")
+            ActionType.EDIT -> {
+                (activity as MainActivity).mealNameEt.setText(item.mealName)
+                (activity as MainActivity).main_fab.setImageResource(R.drawable.ic_baseline_edit_24)
+                (activity as MainActivity).fabImgRes = R.drawable.ic_baseline_edit_24
+                (activity as MainActivity).putIdToSharedPrefs(item)
+            }
             else -> {}
         }
     },{ item, actionId ->
@@ -41,8 +47,8 @@ class MealPlanFragment : BaseFragment<SharedViewModel>() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         mealPlanRv.apply {
-            addItemDecoration(DividerItemDecoration(context!!, LinearLayoutManager.VERTICAL))
-            layoutManager = LinearLayoutManager(context!!, LinearLayoutManager.VERTICAL, false)
+            addItemDecoration(DividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL))
+            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
             adapter = mealPlanAdapter
         }
     }

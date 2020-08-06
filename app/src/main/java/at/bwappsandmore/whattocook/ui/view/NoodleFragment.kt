@@ -53,7 +53,7 @@ class NoodleFragment : BaseFragment<SharedViewModel>() {
 
         viewModel.getAllMeals(NOODLE.value).observe(viewLifecycleOwner, Observer { meals ->
             meals?.let {
-                noodleAdapter.setMeals(it)
+                noodleAdapter.replaceAll(it)
             }
             return@Observer
         })

@@ -14,6 +14,7 @@ import at.bwappsandmore.whattocook.enums.ActionType
 import at.bwappsandmore.whattocook.enums.MealType.*
 import at.bwappsandmore.whattocook.repository.AppRepository
 import at.bwappsandmore.whattocook.ui.viewmodel.SharedViewModel
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_rice.*
 import javax.inject.Inject
 
@@ -25,7 +26,12 @@ class RiceFragment : BaseFragment<SharedViewModel>() {
 
     private var riceAdapter = FragmentAdapter({ item, actionId ->
         when (actionId) {
-            ActionType.EDIT -> Log.d("edit","edit")
+            ActionType.EDIT -> {
+                (activity as MainActivity).mealNameEt.setText(item.mealName)
+                (activity as MainActivity).main_fab.setImageResource(R.drawable.ic_baseline_edit_24)
+                (activity as MainActivity).fabImgRes = R.drawable.ic_baseline_edit_24
+                (activity as MainActivity).putIdToSharedPrefs(item)
+            }
             else -> {}
         }
     },{ item, actionId ->
@@ -46,14 +52,14 @@ class RiceFragment : BaseFragment<SharedViewModel>() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         riceRV.apply {
-            addItemDecoration(DividerItemDecoration(context!!, LinearLayoutManager.VERTICAL))
-            layoutManager = LinearLayoutManager(context!!, LinearLayoutManager.VERTICAL, false)
+            addItemDecoration(DividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL))
+            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
             adapter = riceAdapter
         }
 
         viewModel.getAllMeals(RICE.value).observe(viewLifecycleOwner, Observer { meals ->
             meals?.let {
-                riceAdapter.setMeals(it)
+                riceAdapter.replaceAll(it)
             }
 
             return@Observer

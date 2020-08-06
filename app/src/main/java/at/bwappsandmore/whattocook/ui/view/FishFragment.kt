@@ -54,7 +54,7 @@ class FishFragment : BaseFragment<SharedViewModel>() {
         }
         viewModel.getAllMeals(FISH.value).observe(viewLifecycleOwner, Observer { meals ->
             meals?.let {
-                fishAdapter.setMeals(it)
+                fishAdapter.replaceAll(it)
             }
             return@Observer
         })

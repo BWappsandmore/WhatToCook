@@ -7,18 +7,20 @@ import androidx.core.content.edit
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
+import androidx.viewpager2.widget.ViewPager2.OFFSCREEN_PAGE_LIMIT_DEFAULT
 import at.bwappsandmore.whattocook.adapter.PagerAdapter
 import at.bwappsandmore.whattocook.base.BaseActivity
 import at.bwappsandmore.whattocook.di.AppModule
 import at.bwappsandmore.whattocook.di.DaggerAppComponent
 import at.bwappsandmore.whattocook.repository.AppRepository
 import at.bwappsandmore.whattocook.room.MealEntity
-import at.bwappsandmore.whattocook.ui.view.DelCopyShareFragment
-import at.bwappsandmore.whattocook.ui.view.InsertFishMealFragment
 import at.bwappsandmore.whattocook.ui.viewmodel.SharedViewModel
 import at.bwappsandmore.whattocook.ui.viewmodel.SharedViewModelImpl
 import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_main.main_fab
+import kotlinx.android.synthetic.main.activity_main.mealNameEt
+import kotlinx.android.synthetic.main.activity_main.viewPager
 import java.lang.Exception
 import javax.inject.Inject
 
@@ -52,14 +54,17 @@ class MainActivity : BaseActivity<SharedViewModel>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        viewPager.adapter = PagerAdapter(supportFragmentManager, lifecycle)
-        viewPager.orientation = ViewPager2.ORIENTATION_HORIZONTAL
+        viewPager.apply {
+            adapter = PagerAdapter(supportFragmentManager, lifecycle)
+            orientation = ViewPager2.ORIENTATION_HORIZONTAL
+            offscreenPageLimit = OFFSCREEN_PAGE_LIMIT_DEFAULT
 
-        viewPager.setPageTransformer { page, position ->
-            with(page) {
-                pivotX = if (position < 0F) width.toFloat() else 0F
-                pivotY = height * DELTA_Y
-                rotationY = ROTATION_Y_COEFFICIENT * position
+            setPageTransformer { page, position ->
+                with(page) {
+                    pivotX = if (position < 0F) width.toFloat() else 0F
+                    pivotY = height * DELTA_Y
+                    rotationY = ROTATION_Y_COEFFICIENT * position
+                }
             }
         }
 
@@ -82,7 +87,7 @@ class MainActivity : BaseActivity<SharedViewModel>() {
         viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 when (position) {
-                    0, 1 -> {
+                    0 -> {
                         mealNameEt.visibility = View.GONE
                         main_fab.visibility = View.GONE
                         altern_fab.visibility = View.VISIBLE
@@ -98,43 +103,22 @@ class MainActivity : BaseActivity<SharedViewModel>() {
         })
 
         altern_fab.setOnClickListener {
-            when (viewPager.currentItem) {
-                1 -> {
-                    val fragmentManager = supportFragmentManager
-                    val fragmentTransaction = fragmentManager.beginTransaction()
-                    val fragment = InsertFishMealFragment()
-                    fragmentTransaction.add(R.id.container, fragment)
-                    fragmentTransaction.commit()
-                }
-                else -> {
-                }
-            }
+            //TODO
+        }
 
-            main_fab.setOnClickListener {
-                mealNameEt.text.toString().trim().isNotEmpty().apply {
-                    if (mealNameEt.text.toString().trim() != "") {
-                        if (fabImgRes == R.drawable.ic_add_white_24dp) {
-                            viewModel.insertMeal(
-                                MealEntity(
-                                    0,
-                                    viewPager.currentItem,
-                                    mealNameEt.text.toString()
-                                )
-                            )
-                        } else {
-                            viewModel.updateMeal(
-                                mealNameEt.text.toString(),
-                                viewPager.currentItem,
-                                sharedPreferences.getInt("mealId", 0)
-                            )
-                        }
-
-                        mealNameEt.text.clear()
-                        main_fab.setImageResource(R.drawable.ic_add_white_24dp)
+        main_fab.setOnClickListener {
+            mealNameEt?.text.toString().isNotBlank().apply {
+                if (mealNameEt.text.toString().isNotBlank()) {
+                    if (fabImgRes == R.drawable.ic_add_white_24dp) {
+                        viewModel.insertMeal(MealEntity(0, viewPager.currentItem, mealNameEt.text.toString()))
+                    } else {
+                        viewModel.updateMeal(mealNameEt.text.toString(), viewPager.currentItem, sharedPreferences.getInt("mealId", 0))
                     }
+                    mealNameEt.text.clear()
+                    main_fab.setImageResource(R.drawable.ic_add_white_24dp)
                 }
-                hideSoftKeyboard(this)
             }
+            hideSoftKeyboard(this@MainActivity)
         }
     }
 
