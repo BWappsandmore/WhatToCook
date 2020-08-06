@@ -1,8 +1,6 @@
 package at.bwappsandmore.whattocook.ui.view
 
 import android.os.Bundle
-import android.util.Log
-import android.view.View
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -45,10 +43,6 @@ class RiceFragment : BaseFragment<SharedViewModel>() {
     override fun getLayoutResource(): Int = R.layout.fragment_rice
     override fun getViewModelClass(): Class<SharedViewModel> = SharedViewModel::class.java
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-    }
-
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         riceRV.apply {
@@ -61,7 +55,6 @@ class RiceFragment : BaseFragment<SharedViewModel>() {
             meals?.let {
                 riceAdapter.replaceAll(it)
             }
-
             return@Observer
         })
     }

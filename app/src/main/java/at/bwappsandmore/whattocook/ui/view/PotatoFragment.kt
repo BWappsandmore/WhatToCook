@@ -1,7 +1,6 @@
 package at.bwappsandmore.whattocook.ui.view
 
 import android.os.Bundle
-import android.util.Log
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager

@@ -9,19 +9,18 @@ import androidx.recyclerview.widget.SortedList
 import androidx.recyclerview.widget.SortedListAdapterCallback
 import at.bwappsandmore.whattocook.R
 import at.bwappsandmore.whattocook.enums.ActionType
-import at.bwappsandmore.whattocook.room.MealEntity
+import at.bwappsandmore.whattocook.room.ListMealsEntity
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.recyclerview_item.view.*
 
-class FragmentAdapter(
-    private val onActionClicked: (MealEntity, ActionType) -> Unit,
-    private val onActionLongClicked: (MealEntity, ActionType) -> Unit
-) : RecyclerView.Adapter<FragmentAdapter.FragmentViewHolder>() {
+class ListMealsAdapter(
+    private val onActionLongClicked: (ListMealsEntity, ActionType) -> Unit
+) : RecyclerView.Adapter<ListMealsAdapter.FragmentViewHolder>() {
 
-    var meals : SortedList<MealEntity>
+    var meals : SortedList<ListMealsEntity>
 
     init {
-        meals = SortedList(MealEntity::class.java, object : SortedListAdapterCallback<MealEntity>(this) {
+        meals = SortedList(ListMealsEntity::class.java, object : SortedListAdapterCallback<ListMealsEntity>(this) {
             override fun onInserted(position: Int, count: Int) {
                 super.onInserted(position, count)
                 notifyItemRangeInserted(position, count)
@@ -43,24 +42,24 @@ class FragmentAdapter(
             }
 
             override fun areItemsTheSame(
-                item1: MealEntity?,
-                item2: MealEntity?
+                item1: ListMealsEntity?,
+                item2: ListMealsEntity?
             ): Boolean = item1 == item2
 
-            override fun compare(o1: MealEntity?, o2: MealEntity?): Int = 0
+            override fun compare(o1: ListMealsEntity?, o2: ListMealsEntity?): Int = 0
 
             override fun areContentsTheSame(
-                oldItem: MealEntity?,
-                newItem: MealEntity?
+                oldItem: ListMealsEntity?,
+                newItem: ListMealsEntity?
             ): Boolean = oldItem?.id == newItem?.id
         })
     }
 
-    internal fun replaceAll(contacts: List<MealEntity>) {
+    internal fun replaceAll(meals: List<ListMealsEntity>) {
         this.meals.apply {
             beginBatchedUpdates()
             clear()
-            addAll(contacts)
+            addAll(meals)
             endBatchedUpdates()
         }
     }
@@ -68,7 +67,7 @@ class FragmentAdapter(
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): FragmentAdapter.FragmentViewHolder =
+    ): ListMealsAdapter.FragmentViewHolder =
         FragmentViewHolder(
             LayoutInflater.from(parent.context).inflate(R.layout.recyclerview_item, parent, false)
         )
@@ -84,9 +83,6 @@ class FragmentAdapter(
         LayoutContainer {
         init {
             containerView.apply {
-                setOnClickListener {
-                    onActionClicked(meals[adapterPosition], ActionType.EDIT)
-                }
                 setOnLongClickListener {
                     onActionLongClicked(meals[adapterPosition], ActionType.DELCOPY)
                     select(it)
@@ -95,7 +91,7 @@ class FragmentAdapter(
             }
         }
 
-        fun bind(meal: MealEntity) {
+        fun bind(meal: ListMealsEntity) {
             deselect(itemView)
             itemView.meal_name.text = meal.mealName
         }

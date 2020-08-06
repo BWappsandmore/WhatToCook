@@ -26,9 +26,13 @@ class FishFragment : BaseFragment<SharedViewModel>() {
 
     private var fishAdapter = FragmentAdapter({ item, actionId ->
         when (actionId) {
-            ActionType.EDIT -> Log.d("edit", "edit")
-            else -> {
+            ActionType.EDIT -> {
+                (activity as MainActivity).mealNameEt.setText(item.mealName)
+                (activity as MainActivity).main_fab.setImageResource(R.drawable.ic_baseline_edit_24)
+                (activity as MainActivity).fabImgRes = R.drawable.ic_baseline_edit_24
+                (activity as MainActivity).putIdToSharedPrefs(item)
             }
+            else -> {}
         }
     }, { item, actionId ->
         when (actionId) {

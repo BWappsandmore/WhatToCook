@@ -10,7 +10,7 @@ import kotlinx.coroutines.launch
 
 
 @Database(
-    entities = [MealEntity::class],
+    entities = [MealEntity::class, ListMealsEntity::class],
     version = 1,
     exportSchema = false
 )

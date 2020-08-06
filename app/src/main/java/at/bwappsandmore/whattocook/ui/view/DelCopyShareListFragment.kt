@@ -11,16 +11,16 @@ import at.bwappsandmore.whattocook.MainActivity
 import at.bwappsandmore.whattocook.R
 import at.bwappsandmore.whattocook.base.BaseFragment
 import at.bwappsandmore.whattocook.repository.AppRepository
-import at.bwappsandmore.whattocook.room.MealEntity
+import at.bwappsandmore.whattocook.room.ListMealsEntity
 import at.bwappsandmore.whattocook.ui.viewmodel.SharedViewModel
 import kotlinx.android.synthetic.main.fragment_del_copy.*
 import javax.inject.Inject
 
-class DelCopyShareFragment : BaseFragment<SharedViewModel>() {
+class DelCopyShareListFragment : BaseFragment<SharedViewModel>() {
     @Inject
     lateinit var repository: AppRepository
 
-    private lateinit var mealEntity: MealEntity
+    private lateinit var mealEntity: ListMealsEntity
     private var comesFrom = 0
     override fun getLayoutResource(): Int = R.layout.fragment_del_copy
     override fun getViewModelClass(): Class<SharedViewModel> = SharedViewModel::class.java

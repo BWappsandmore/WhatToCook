@@ -40,9 +40,9 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'androidx.core:core-ktx:1.3.0'
-    implementation 'com.google.android.material:material:1.1.0'
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'androidx.core:core-ktx:1.3.1'
+    implementation 'com.google.android.material:material:1.2.0'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
     testImplementation 'junit:junit:4.13'
@@ -50,14 +50,15 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
     // Dagger
-    implementation 'com.google.dagger:dagger:2.27'
-    kapt 'com.google.dagger:dagger-compiler:2.27'
+    implementation 'com.google.dagger:dagger:2.28.3'
+    kapt 'com.google.dagger:dagger-compiler:2.28.3'
 
     // Room components
     implementation "androidx.room:room-runtime:$rootProject.roomVersion"
     implementation "androidx.room:room-ktx:$rootProject.roomVersion"
     kapt "androidx.room:room-compiler:$rootProject.roomVersion"
     androidTestImplementation "androidx.room:room-testing:$rootProject.roomVersion"
+    implementation "androidx.room:room-rxjava2:$rootProject.roomVersion"
 
     // Coroutines
     api "org.jetbrains.kotlinx:kotlinx-coroutines-android:$rootProject.coroutines"
@@ -66,11 +67,16 @@ dependencies {
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
 
     //Material design
-    implementation 'com.google.android.material:material:1.1.0'
+    implementation 'com.google.android.material:material:1.2.0'
 
     //ViewPager2
     implementation 'androidx.viewpager2:viewpager2:1.0.0'
 
     //Shared Preferences
     implementation "androidx.preference:preference:1.1.1"
+
+    //RX
+    implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.10'
+    implementation 'io.reactivex.rxjava2:rxkotlin:2.4.0'
 }

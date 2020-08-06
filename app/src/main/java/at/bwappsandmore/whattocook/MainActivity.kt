@@ -3,6 +3,7 @@ package at.bwappsandmore.whattocook
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.core.content.edit
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -73,13 +74,13 @@ class MainActivity : BaseActivity<SharedViewModel>() {
             viewPager,
             TabLayoutMediator.TabConfigurationStrategy { tab, position ->
                 tab.icon = when (position) {
-                    0 -> getDrawable(R.drawable.ic_list_meals)
-                    1 -> getDrawable(R.drawable.ic_fish_meal)
-                    2 -> getDrawable(R.drawable.ic_noodles)
-                    3 -> getDrawable(R.drawable.ic_potatoe_solid)
-                    4 -> getDrawable(R.drawable.ic_rice)
-                    5 -> getDrawable(R.drawable.ic_pizza)
-                    6 -> getDrawable(R.drawable.ic_stew)
+                    0 -> ContextCompat.getDrawable(this, R.drawable.ic_list_meals)
+                    1 -> ContextCompat.getDrawable(this, R.drawable.ic_fish_meal)
+                    2 -> ContextCompat.getDrawable(this, R.drawable.ic_noodles)
+                    3 -> ContextCompat.getDrawable(this, R.drawable.ic_potatoe_solid)
+                    4 -> ContextCompat.getDrawable(this, R.drawable.ic_rice)
+                    5 -> ContextCompat.getDrawable(this, R.drawable.ic_pizza)
+                    6 -> ContextCompat.getDrawable(this, R.drawable.ic_stew)
                     else -> throw Exception()
                 }
             }).attach()
@@ -103,7 +104,7 @@ class MainActivity : BaseActivity<SharedViewModel>() {
         })
 
         altern_fab.setOnClickListener {
-            //TODO
+            viewModel.generateMealPlan()
         }
 
         main_fab.setOnClickListener {
@@ -112,7 +113,11 @@ class MainActivity : BaseActivity<SharedViewModel>() {
                     if (fabImgRes == R.drawable.ic_add_white_24dp) {
                         viewModel.insertMeal(MealEntity(0, viewPager.currentItem, mealNameEt.text.toString()))
                     } else {
-                        viewModel.updateMeal(mealNameEt.text.toString(), viewPager.currentItem, sharedPreferences.getInt("mealId", 0))
+                        viewModel.updateMeal(
+                            mealNameEt.text.toString(),
+                            viewPager.currentItem,
+                            sharedPreferences.getInt("mealId", 0)
+                        )
                     }
                     mealNameEt.text.clear()
                     main_fab.setImageResource(R.drawable.ic_add_white_24dp)

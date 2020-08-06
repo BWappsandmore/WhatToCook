@@ -8,8 +8,10 @@ import androidx.annotation.IdRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import at.bwappsandmore.whattocook.room.ListMealsEntity
 import at.bwappsandmore.whattocook.room.MealEntity
 import at.bwappsandmore.whattocook.ui.view.DelCopyShareFragment
+import at.bwappsandmore.whattocook.ui.view.DelCopyShareListFragment
 
 abstract class BaseActivity <T: BaseViewModel> : AppCompatActivity() {
 
@@ -48,6 +50,14 @@ abstract class BaseActivity <T: BaseViewModel> : AppCompatActivity() {
         val bundle = Bundle()
         bundle.putParcelable("item", mealEntity)
         bundle.putInt("fromFragment", comesFrom)
+        fragment.arguments = bundle
+        return fragment
+    }
+
+    fun getInstanceDelFragment(meal: ListMealsEntity): DelCopyShareListFragment {
+        val fragment = DelCopyShareListFragment()
+        val bundle = Bundle()
+        bundle.putParcelable("item", meal)
         fragment.arguments = bundle
         return fragment
     }
