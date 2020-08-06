@@ -14,14 +14,12 @@ import at.bwappsandmore.whattocook.di.AppModule
 import at.bwappsandmore.whattocook.di.DaggerAppComponent
 import at.bwappsandmore.whattocook.repository.AppRepository
 import at.bwappsandmore.whattocook.room.MealEntity
-import at.bwappsandmore.whattocook.ui.view.InsertFishMealFragment
 import at.bwappsandmore.whattocook.ui.viewmodel.SharedViewModel
 import at.bwappsandmore.whattocook.ui.viewmodel.SharedViewModelImpl
 import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.main_fab
 import kotlinx.android.synthetic.main.activity_main.mealNameEt
-import kotlinx.android.synthetic.main.activity_main.view.*
 import kotlinx.android.synthetic.main.activity_main.viewPager
 import java.lang.Exception
 import javax.inject.Inject
@@ -89,7 +87,7 @@ class MainActivity : BaseActivity<SharedViewModel>() {
         viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 when (position) {
-                    0, 1 -> {
+                    0 -> {
                         mealNameEt.visibility = View.GONE
                         main_fab.visibility = View.GONE
                         altern_fab.visibility = View.VISIBLE
@@ -105,17 +103,7 @@ class MainActivity : BaseActivity<SharedViewModel>() {
         })
 
         altern_fab.setOnClickListener {
-            when (viewPager.currentItem) {
-                1 -> {
-                    val fragmentManager = supportFragmentManager
-                    val fragmentTransaction = fragmentManager.beginTransaction()
-                    val fragment = InsertFishMealFragment()
-                    fragmentTransaction.add(R.id.container, fragment)
-                    fragmentTransaction.commit()
-                }
-                else -> {
-                }
-            }
+            //TODO
         }
 
         main_fab.setOnClickListener {
