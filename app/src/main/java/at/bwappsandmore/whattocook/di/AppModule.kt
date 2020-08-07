@@ -1,6 +1,6 @@
 package at.bwappsandmore.whattocook.di
 
-import android.app.Application
+import android.content.Context
 import android.content.SharedPreferences
 import androidx.preference.PreferenceManager
 import at.bwappsandmore.whattocook.repository.AppRepository
@@ -10,11 +10,11 @@ import dagger.Module
 import dagger.Provides
 
 @Module
-class AppModule(private val app: Application) {
+class AppModule {
 
     @Provides
-    fun provideDB(): AppDatabase {
-        return AppDatabase.getDatabase(app)
+    fun provideDB(context: Context): AppDatabase {
+        return AppDatabase.getDatabase(context)
     }
 
     @Provides
@@ -28,7 +28,7 @@ class AppModule(private val app: Application) {
     }
 
     @Provides
-    fun provideSharedPreferences(): SharedPreferences {
-        return PreferenceManager.getDefaultSharedPreferences(app)
+    fun provideSharedPreferences(context: Context): SharedPreferences {
+        return PreferenceManager.getDefaultSharedPreferences(context)
     }
 }

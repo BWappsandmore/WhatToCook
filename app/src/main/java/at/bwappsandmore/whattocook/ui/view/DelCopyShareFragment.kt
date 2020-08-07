@@ -39,14 +39,12 @@ class DelCopyShareFragment : BaseFragment<SharedViewModel>() {
             viewModel.deleteMeal(mealEntity)
             closeFragment()
             (activity as MainActivity).showToast("Meal has been removed")
-            //viewModel.getAllMeals(comesFrom)
         }
 
         copyIB.setOnClickListener {
             this.context?.copyToClipboard(mealEntity.mealName)
             (activity as MainActivity).showToast("Copied to clipboard")
             closeFragment()
-            //viewModel.getAllMeals(comesFrom)
         }
 
         shareIB.setOnClickListener {
@@ -60,7 +58,6 @@ class DelCopyShareFragment : BaseFragment<SharedViewModel>() {
             val shareIntent = Intent.createChooser(sendIntent, "WhatToCook")
             startActivity(shareIntent)
             closeFragment()
-            //viewModel.getAllMeals(comesFrom)
         }
     }
 

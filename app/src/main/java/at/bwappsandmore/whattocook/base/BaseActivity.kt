@@ -5,19 +5,18 @@ import android.os.Bundle
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.annotation.IdRes
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import at.bwappsandmore.whattocook.room.ListMealsEntity
 import at.bwappsandmore.whattocook.room.MealEntity
 import at.bwappsandmore.whattocook.ui.view.DelCopyShareFragment
 import at.bwappsandmore.whattocook.ui.view.DelCopyShareListFragment
+import dagger.android.support.DaggerAppCompatActivity
 
-abstract class BaseActivity <T: BaseViewModel> : AppCompatActivity() {
+abstract class BaseActivity <T: BaseViewModel> : DaggerAppCompatActivity() {
 
     lateinit var viewModel: T
 
-    abstract fun inject()
     abstract fun getLayoutResource(): Int
     abstract fun getViewModelClass(): Class<T>
     abstract fun getViewModelFactory(): ViewModelProvider.Factory
@@ -25,8 +24,8 @@ abstract class BaseActivity <T: BaseViewModel> : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(getLayoutResource())
-        inject()
         viewModel = ViewModelProvider(this, getViewModelFactory()).get(getViewModelClass())
+        lifecycle.addObserver(viewModel)
     }
 
     fun addFragment(@IdRes layoutId: Int, fragment: Fragment, backStack: Boolean = false) {

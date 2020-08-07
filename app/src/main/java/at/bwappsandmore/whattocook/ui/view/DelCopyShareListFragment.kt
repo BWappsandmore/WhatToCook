@@ -14,6 +14,10 @@ import at.bwappsandmore.whattocook.repository.AppRepository
 import at.bwappsandmore.whattocook.room.ListMealsEntity
 import at.bwappsandmore.whattocook.ui.viewmodel.SharedViewModel
 import kotlinx.android.synthetic.main.fragment_del_copy.*
+import kotlinx.android.synthetic.main.fragment_del_copy.copyIB
+import kotlinx.android.synthetic.main.fragment_del_copy.deleteIB
+import kotlinx.android.synthetic.main.fragment_del_copy.shareIB
+import kotlinx.android.synthetic.main.fragment_delcopy_swap.*
 import javax.inject.Inject
 
 class DelCopyShareListFragment : BaseFragment<SharedViewModel>() {
@@ -21,32 +25,38 @@ class DelCopyShareListFragment : BaseFragment<SharedViewModel>() {
     lateinit var repository: AppRepository
 
     private lateinit var mealEntity: ListMealsEntity
-    private var comesFrom = 0
-    override fun getLayoutResource(): Int = R.layout.fragment_del_copy
+    override fun getLayoutResource(): Int = R.layout.fragment_delcopy_swap
     override fun getViewModelClass(): Class<SharedViewModel> = SharedViewModel::class.java
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
             mealEntity = it.getParcelable("item")!!
-            comesFrom = it.getInt("fromFragment")
         }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        swapIB.setOnClickListener {
+            viewModel.apply {
+                deleteMeal(mealEntity)
+                getRandomMeal(mealEntity.mealType)
+                getListMeals()
+            }
+            closeFragment()
+        }
+
         deleteIB.setOnClickListener {
             viewModel.deleteMeal(mealEntity)
             closeFragment()
             (activity as MainActivity).showToast("Meal has been removed")
-            //viewModel.getAllMeals(comesFrom)
         }
 
         copyIB.setOnClickListener {
             this.context?.copyToClipboard(mealEntity.mealName)
             (activity as MainActivity).showToast("Copied to clipboard")
             closeFragment()
-            //viewModel.getAllMeals(comesFrom)
         }
 
         shareIB.setOnClickListener {
@@ -60,7 +70,6 @@ class DelCopyShareListFragment : BaseFragment<SharedViewModel>() {
             val shareIntent = Intent.createChooser(sendIntent, "WhatToCook")
             startActivity(shareIntent)
             closeFragment()
-            //viewModel.getAllMeals(comesFrom)
         }
     }
 

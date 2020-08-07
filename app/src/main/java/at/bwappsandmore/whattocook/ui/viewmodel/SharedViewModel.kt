@@ -21,7 +21,6 @@ abstract class SharedViewModel : BaseViewModel() {
     abstract fun getRandomMeal(mealType: Int)
     abstract fun generateMealPlan()
     abstract fun deleteAll()
-
 }
 
 class SharedViewModelImpl(private val repository: AppRepository) : SharedViewModel() {

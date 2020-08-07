@@ -11,8 +11,6 @@ import androidx.viewpager2.widget.ViewPager2
 import androidx.viewpager2.widget.ViewPager2.OFFSCREEN_PAGE_LIMIT_DEFAULT
 import at.bwappsandmore.whattocook.adapter.PagerAdapter
 import at.bwappsandmore.whattocook.base.BaseActivity
-import at.bwappsandmore.whattocook.di.AppModule
-import at.bwappsandmore.whattocook.di.DaggerAppComponent
 import at.bwappsandmore.whattocook.repository.AppRepository
 import at.bwappsandmore.whattocook.room.MealEntity
 import at.bwappsandmore.whattocook.ui.viewmodel.SharedViewModel
@@ -125,10 +123,6 @@ class MainActivity : BaseActivity<SharedViewModel>() {
             }
             hideSoftKeyboard(this@MainActivity)
         }
-    }
-
-    override fun inject() {
-        DaggerAppComponent.builder().appModule(AppModule(application)).build().inject(this)
     }
 
     override fun onBackPressed() {
