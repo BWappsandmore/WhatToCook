@@ -66,19 +66,19 @@ class MainActivity : BaseActivity<SharedViewModel>() {
 
         TabLayoutMediator(
             tabs,
-            viewPager,
-            TabLayoutMediator.TabConfigurationStrategy { tab, position ->
-                tab.icon = when (position) {
-                    0 -> ContextCompat.getDrawable(this, R.drawable.ic_list_meals)
-                    1 -> ContextCompat.getDrawable(this, R.drawable.ic_fish_meal)
-                    2 -> ContextCompat.getDrawable(this, R.drawable.ic_noodles)
-                    3 -> ContextCompat.getDrawable(this, R.drawable.ic_potatoe_solid)
-                    4 -> ContextCompat.getDrawable(this, R.drawable.ic_rice)
-                    5 -> ContextCompat.getDrawable(this, R.drawable.ic_pizza)
-                    6 -> ContextCompat.getDrawable(this, R.drawable.ic_stew)
-                    else -> throw Exception()
-                }
-            }).attach()
+            viewPager
+        ) { tab, position ->
+            tab.icon = when (position) {
+                0 -> ContextCompat.getDrawable(this, R.drawable.ic_list_meals)
+                1 -> ContextCompat.getDrawable(this, R.drawable.ic_fish_meal)
+                2 -> ContextCompat.getDrawable(this, R.drawable.ic_noodles)
+                3 -> ContextCompat.getDrawable(this, R.drawable.ic_potatoe_solid)
+                4 -> ContextCompat.getDrawable(this, R.drawable.ic_rice)
+                5 -> ContextCompat.getDrawable(this, R.drawable.ic_pizza)
+                6 -> ContextCompat.getDrawable(this, R.drawable.ic_stew)
+                else -> throw Exception()
+            }
+        }.attach()
 
         viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
@@ -131,5 +131,4 @@ class MainActivity : BaseActivity<SharedViewModel>() {
     fun putIdToSharedPrefs(mealEntity: MealEntity) {
         sharedPreferences.edit { putInt("mealId", mealEntity.id) }
     }
-
 }
