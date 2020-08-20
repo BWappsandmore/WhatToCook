@@ -17,9 +17,6 @@ import at.bwappsandmore.whattocook.ui.viewmodel.SharedViewModel
 import at.bwappsandmore.whattocook.ui.viewmodel.SharedViewModelImpl
 import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.activity_main.main_fab
-import kotlinx.android.synthetic.main.activity_main.mealNameEt
-import kotlinx.android.synthetic.main.activity_main.viewPager
 import java.lang.Exception
 import javax.inject.Inject
 
@@ -108,15 +105,14 @@ class MainActivity : BaseActivity<SharedViewModel>() {
         main_fab.setOnClickListener {
             mealNameEt?.text.toString().isNotBlank().apply {
                 if (mealNameEt.text.toString().isNotBlank()) {
-                    if (fabImgRes == R.drawable.ic_add_white_24dp) {
+                    if (fabImgRes == R.drawable.ic_add_white_24dp)
                         viewModel.insertMeal(MealEntity(0, viewPager.currentItem, mealNameEt.text.toString()))
-                    } else {
-                        viewModel.updateMeal(
-                            mealNameEt.text.toString(),
-                            viewPager.currentItem,
-                            sharedPreferences.getInt("mealId", 0)
-                        )
+                    else {
+                        viewModel.updateMeal(mealNameEt.text.toString(), viewPager.currentItem, sharedPreferences.getInt("mealId", 0))
+                        sharedPreferences.edit { putInt("mealId", 0) }
+                        fabImgRes = R.drawable.ic_add_white_24dp
                     }
+
                     mealNameEt.text.clear()
                     main_fab.setImageResource(R.drawable.ic_add_white_24dp)
                 }
