@@ -23,6 +23,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="Test title Test TEst Tes tttt Test TE st ets tte tstt " />
+        tools:text="Test title Test TEst Tes t " />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

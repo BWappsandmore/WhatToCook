@@ -90,7 +90,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="4dp"
-
         app:backgroundTint="@color/colorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -101,7 +100,7 @@
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="626dp"
-        app:layout_constraintBottom_toBottomOf="@+id/viewPager"
+        app:layout_constraintBottom_toBottomOf="@+id/altern_fab"
         app:layout_constraintEnd_toEndOf="@+id/viewPager"
         app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
